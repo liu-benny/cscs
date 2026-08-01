@@ -69,7 +69,7 @@
     <div class="form-group row">
         <label for="max_capacity_input" class="col-sm-2 col-form-label">Max Capacity</label>
         <div class="col-sm-10">
-        <input type="text" class="form-control" id="max_capacity_input" name="max_capacity" value="<?= $data['location']->max_capacity ?>">
+        <input type="number" class="form-control" id="max_capacity_input" name="max_capacity" value="<?= $data['location']->max_capacity ?>">
         </div>
     </div>
 

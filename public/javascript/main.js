@@ -14,3 +14,29 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
+
+function formatPhoneNumber(value) {
+  let digits = value.replace(/\D/g, '').slice(0, 11);
+
+  if (digits.length === 11 && digits[0] === '1') {
+    return '1-' +
+      digits.slice(1, 4) +
+      '-' +
+      digits.slice(4, 7) +
+      '-' +
+      digits.slice(7);
+  }
+
+  digits = digits.slice(0, 10);
+
+  if (digits.length <= 3) return digits;
+  if (digits.length <= 6) return digits.slice(0, 3) + '-' + digits.slice(3);
+  return digits.slice(0, 3) + '-' + digits.slice(3, 6) + '-' + digits.slice(6);
+}
+
+const phoneInput = document.getElementById('phone_number_input');
+if (phoneInput) {
+  phoneInput.addEventListener('input', function () {
+    this.value = formatPhoneNumber(this.value);
+  });
+}
