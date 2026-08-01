@@ -24,27 +24,33 @@
 
     </div>
 
-    <div class="form-group row">
-        <label for="city_input" class="col-sm-2 col-form-label">City</label>
-        <div class="col-sm-10">
-        <input type="text" class="form-control" id="city_input" name="city" value="<?= $data['location']->city ?>">
-        </div>
+    <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="city_input">City</label>
+      <input type="text" class="form-control" id="city_input" name="city" value="<?= $data['location']->city ?>">
     </div>
+    <div class="form-group col-md-4">
+      <label for="province_input">Province</label>
+      <select id="province_input" class="form-control" name="province">
+        <option selected><?= $data['location']->province ?></option>
+        <option>Alberta</option>
+        <option>British Columbia</option>
+        <option>Manitoba</option>
+        <option>New Brunswick</option>
+        <option>Newfoundland and Labrador</option>
+        <option>Nova Scotia</option>
+        <option>Ontario</option>
+        <option>Prince Edward Island</option>
+        <option>Quebec</option>
+        <option>Saskatchewan</option>
 
-    <div class="form-group row">
-        <label for="province_input" class="col-sm-2 col-form-label">Province</label>
-        <div class="col-sm-10">
-        <input type="text" class="form-control" id="province_input" name="province" value="<?= $data['location']->province ?>">
-        </div>
+      </select>
     </div>
-
-    <div class="form-group row">
-        <label for="postal_code_input" class="col-sm-2 col-form-label">Postal Code</label>
-        <div class="col-sm-10">
-        <input type="text" class="form-control" id="postal_code_input" name="postal_code" value="<?= $data['location']->postal_code ?>">
-        </div>
-
+    <div class="form-group col-md-2">
+      <label for="postal_code_input">Postal Code</label>
+      <input type="text" class="form-control" id="postal_code_input" name="postal_code" value="<?= $data['location']->postal_code ?>">
     </div>
+  </div>
 
     <div class="form-group row">
         <label for="phone_number_input" class="col-sm-2 col-form-label">Phone Number</label>
