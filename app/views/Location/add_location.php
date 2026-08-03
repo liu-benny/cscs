@@ -32,7 +32,7 @@
     <div class="form-group col-md-4">
       <label for="province_input">Province</label>
       <select id="province_input" class="form-control" name="province">
-        <option selected>Choose...</option>
+        <option value="" disabled selected hidden>Please choose an option</option>
         <option>Alberta</option>
         <option>British Columbia</option>
         <option>Manitoba</option>

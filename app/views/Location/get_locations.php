@@ -7,7 +7,7 @@
       <li class="nav-item">
         <a class="nav-link" href="<?=URLROOT; ?>/Location/add_location">Add New Location</a>
       </li>
-</li>
+
      
     </ul>
   </div>

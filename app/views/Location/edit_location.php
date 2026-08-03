@@ -13,7 +13,6 @@
     <div class="col-sm-10">
       <input type="text" class="form-control" id="name_input" name="location_name" value="<?= $data['location']->location_name ?>">
     </div>
-
   </div>
 
     <div class="form-group row">
@@ -32,7 +31,7 @@
     <div class="form-group col-md-4">
       <label for="province_input">Province</label>
       <select id="province_input" class="form-control" name="province">
-        <option selected><?= $data['location']->province ?></option>
+        <option selected hidden><?= $data['location']->province ?></option>
         <option>Alberta</option>
         <option>British Columbia</option>
         <option>Manitoba</option>
