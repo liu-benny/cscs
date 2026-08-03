@@ -1,6 +1,6 @@
 <?php require APPROOT . '/views/includes/header.php';  ?>
 
-<form method="post" action="<?= URLROOT; ?>/Location/add_location">
+<form method="post" action="<?= URLROOT; ?>/Personnel/add_personnel">
     <h3>New Personnel</h3>
     
         <div class="form-group row">
