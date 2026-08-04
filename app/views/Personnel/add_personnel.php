@@ -95,7 +95,7 @@
                 <option value="" disabled selected hidden>Please choose an option</option>
                 <option>Administrator</option>
                 <option>Coach</option>
-                <option>Assisstant Coach</option>
+                <option>Assistant Coach</option>
                 <option>Other</option>
             </select>
         </div>
@@ -111,7 +111,19 @@
             </select>
         </div>
     </div>
-    <button class="btn btn-primary" type="submit" name="submit">Update Personnel</button>
+
+    <div class="form-group row">
+    <label for="location_input" class="col-sm-2 col-form-label">Assign a Location</label>
+        <div class="col-sm-4">
+            <select id="location_input" class="form-control" name="location_id" required>
+                <option value="" disabled selected hidden>Please choose an option</option>
+                <?php foreach($data['locations'] as $location): ?>
+                    <option value="<?= $location->location_id ?>"><?= $location->location_name ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit" name="submit">Add Personnel</button>
 </form>
 
 

@@ -3,9 +3,11 @@
 class Personnel extends Controller {
     
     protected $personnel_model;
+    protected $location_model;
 
     public function __construct(){
         $this->personnel_model = $this->model('personnel_model');
+        $this->location_model = $this->model('location_model');
     }
 
     public function index(){
@@ -18,7 +20,11 @@ class Personnel extends Controller {
 
     public function add_personnel(){
         if(!isset($_POST['submit'])){
-            $this->view("Personnel/add_personnel");
+            $locations = $this->location_model->get_locations();
+            $data = [
+                'locations' => $locations
+            ];
+            $this->view("Personnel/add_personnel", $data);
         }
         else{
             $data=[
@@ -37,11 +43,18 @@ class Personnel extends Controller {
                 'mandate' => trim($_POST['mandate'])
                 
             ];
-    
+
+            $location_id = trim($_POST['location_id']);
+            
             if($this->personnel_model->add_personnel($data)){
-                echo 'Please wait we are adding the personnel for you!';
+
+                $personnel = $this->personnel_model->get_latest_personnel_id(); 
+                if($this->personnel_model->add_personnel_location($personnel->personnel_id, $location_id)){
+                    echo 'Please wait we are adding the personnel for you!';
                 
-                echo '<meta http-equiv="Refresh" content="2; url=' . URLROOT . '/Personnel/index">';
+                    echo '<meta http-equiv="Refresh" content="2; url=' . URLROOT . '/Personnel/index">';
+                }
+
             }
         }
     }
