@@ -32,6 +32,12 @@
     <li class="nav-item">
       <a class="nav-link" href="<?= URLROOT; ?>/Personnel">Personnel</a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link" href="<?= URLROOT; ?>/FamilyMember">Family Member</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="<?= URLROOT; ?>/ClubMember">Club Member</a>
+    </li>
   </ul>
 </div>
 </nav>

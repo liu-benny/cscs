@@ -20,7 +20,7 @@
       <th scope="col">last name</th>
       <th scope="col">date of birth</th>
       <th scope="col">ssn</th>
-      <th scope="col">medicare_number</th>
+      <th scope="col">medicare</th>
       <th scope="col">phone number</th>
       <th scope="col">address</th>
       <th scope="col">city</th>

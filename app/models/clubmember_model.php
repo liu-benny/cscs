@@ -11,9 +11,9 @@ class clubmember_model extends Model{
         return $this->getResultSet();
     }
 
-    public function get_clubmember($clubmember_id){
-        $this->query("SELECT * FROM ClubMember WHERE clubmember_id = :clubmember_id");
-        $this->bind(":clubmember_id",$clubmember_id);
+    public function get_clubmember($membership_number){
+        $this->query("SELECT * FROM ClubMember WHERE membership_number = :membership_number");
+        $this->bind(":membership_number",$membership_number);
         return $this->getSingle();
     }
 
@@ -40,10 +40,11 @@ class clubmember_model extends Model{
         return $this->execute();
     }
 
-    public function update_clubmember($clubmember_id,$clubmember){
-        $this->query("UPDATE ClubMember SET first_name = :first_name, last_name = :last_name, date_of_birth = :date_of_birth, gender = :gender, height_cm = :height_cm, weight_kg = :weight_kg, ssn = :ssn, medicare_number = :medicare_number, phone_number = :phone_number, address = :address, city = :city, province = :province, postal_code = :postal_code WHERE clubmember_id = :clubmember_id");    
+    public function update_clubmember($membership_number,$clubmember){
+        $this->query("UPDATE ClubMember SET first_name = :first_name, last_name = :last_name, date_of_birth = :date_of_birth, gender = :gender, height_cm = :height_cm, weight_kg = :weight_kg, ssn = :ssn, medicare_number = :medicare_number, phone_number = :phone_number, address = :address, city = :city, province = :province, postal_code = :postal_code 
+                        WHERE membership_number = :membership_number");    
 
-        $this->bind(":clubmember_id",$clubmember_id);
+        $this->bind(":membership_number",$membership_number);
         $this->bind(":first_name",$clubmember['first_name']);
         $this->bind(":last_name",$clubmember['last_name']);
         $this->bind(":date_of_birth",$clubmember['date_of_birth']);
