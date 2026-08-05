@@ -2,7 +2,7 @@
 
 <form method="post" action="<?= URLROOT; ?>/Personnel/add_personnel">
     <h3>New Personnel</h3>
-    
+        
         <div class="form-group row">
         <label for="first_name_input" class="col-sm-2 col-form-label">First Name</label>
             <div class="col-sm-10">
@@ -123,6 +123,20 @@
             </select>
         </div>
     </div>
+
+    <div class="form-group row">
+        <label for="start_date_input" class="col-sm-2 col-form-label">Start Date</label>
+            <div class="col-sm-4">
+                <input type="date" class="form-control" id="start_date_input" name="start_date" required>
+            </div>
+        </div>
+
+    <div class="form-group row">
+        <label for="end_date_input" class="col-sm-2 col-form-label">End Date (Enter if no longer employed)</label>
+            <div class="col-sm-4">
+                <input type="date" class="form-control" id="end_date_input" name="end_date" >
+            </div>
+        </div>
     <button class="btn btn-primary" type="submit" name="submit">Add Personnel</button>
 </form>
 

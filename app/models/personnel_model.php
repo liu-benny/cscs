@@ -17,6 +17,14 @@ class personnel_model extends Model{
         return $this->getSingle();
     }
 
+    public function get_current_personnel_location($personnel_id){
+        $this->query("SELECT location.location_id, location.location_name FROM EmployedAt 
+                        JOIN location ON EmployedAt.location_id = location.location_id 
+                        WHERE EmployedAt.personnel_id = :personnel_id AND EmployedAt.end_date IS NULL");
+        $this->bind(":personnel_id",$personnel_id);
+        return $this->getSingle();
+    }
+
     public function add_personnel($personnel){
 
         $this->query("INSERT INTO personnel (first_name,last_name,date_of_birth,ssn,medicare_number, phone_number, address, city, province,postal_code, email,personnel_role,mandate)
@@ -61,13 +69,32 @@ class personnel_model extends Model{
         return $this->execute();
     }
 
-    public function add_personnel_location($personnel_id, $location_id){
-        $this->query("INSERT INTO EmployedAt (personnel_id, location_id, start_date) VALUES (:personnel_id, :location_id, CURDATE())");
+    public function add_personnel_location($personnel_id, $location_id,$start_date,$end_date){
+        if ($end_date === "") {
+            $this->query("INSERT INTO EmployedAt (personnel_id, location_id, start_date, end_date) VALUES (:personnel_id, :location_id, :start_date, NULL)");
+        } else {
+            $this->query("INSERT INTO EmployedAt (personnel_id, location_id, start_date, end_date) VALUES (:personnel_id, :location_id, :start_date, :end_date)");
+            $this->bind(":end_date",$end_date);
+        }
         $this->bind(":personnel_id",$personnel_id);
         $this->bind(":location_id",$location_id);
+        $this->bind(":start_date",$start_date);
+        
 
         return $this->execute();
     }
+
+    // personnel location change means the end date will no longer be NULL
+    public function old_personnel_location_ends($personnel_id, $location_id){
+
+        $this->query("UPDATE EmployedAt SET end_date = GREATEST(start_date, CURDATE())
+                        WHERE personnel_id = :personnel_id AND location_id = :location_id AND end_date IS NULL");
+        $this->bind(":personnel_id", $personnel_id);
+        $this->bind(":location_id", $location_id);
+
+        return $this->execute();
+    }
+
 
     public function get_latest_personnel_id(){
         $this->query("SELECT LAST_INSERT_ID() AS personnel_id");

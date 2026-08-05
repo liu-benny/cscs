@@ -40,3 +40,24 @@ if (phoneInput) {
     this.value = formatPhoneNumber(this.value);
   });
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+  const form = document.querySelector('form[action$="/Personnel/add_personnel"]') || document.querySelector('form');
+  const start = document.getElementById('start_date_input');
+  const end = document.getElementById('end_date_input');
+  if (!form || !start || !end) return;
+
+  // prevent end < start and keep min in sync
+  start.addEventListener('change', () => {
+    end.min = start.value || '';
+    if (end.value && end.value < start.value) end.value = start.value;
+    end.setCustomValidity('');
+  });
+
+  form.addEventListener('submit', (e) => {
+    if (end.value && start.value > end.value) {
+      e.preventDefault();
+      alert('End date must be the same day or after Start date.');
+    }
+  });
+});

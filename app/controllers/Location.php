@@ -47,6 +47,11 @@ class Location extends Controller
     public function edit_location($location_id){
 
         $location = $this->location_model->get_location($location_id);
+        if(!isset($location->location_id)){
+                echo 'Location not found!';
+                echo '<meta http-equiv="Refresh" content="2; url=' . URLROOT . '/Location/index">';
+                return;
+        }
         $data = [
             "location" => $location
         ];
