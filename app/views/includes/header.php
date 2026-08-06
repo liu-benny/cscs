@@ -18,7 +18,7 @@
 
   <div class="container">
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand navbar-dark bg-dark">
 
 
 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -37,6 +37,9 @@
     </li>
     <li class="nav-item">
       <a class="nav-link" href="<?= URLROOT; ?>/ClubMember">Club Member</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="<?= URLROOT; ?>/Team">Team</a>
     </li>
   </ul>
 </div>
