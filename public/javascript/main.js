@@ -61,3 +61,16 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
+
+function addPhoneInput() {
+      const container = document.getElementById('input-container');
+      
+      // Create a new input element
+      const newInput = document.createElement('input');
+      newInput.type = 'text';
+      newInput.className = 'form-control mb-2';
+      newInput.placeholder = 'Enter additional phone number';
+      
+      // Append it to the container div
+      container.appendChild(newInput);
+    }

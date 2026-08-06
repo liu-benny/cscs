@@ -63,7 +63,7 @@ class team_model extends Model{
         return $this->execute();
     }
 
-    public function add_team_formation($team_id, $session_id, $coach_id,score){
+    public function add_team_formation($team_id, $session_id, $coach_id,$score){
         $this->query("INSERT INTO TeamFormation (team_id, session_id, coach_id, score) VALUES (:team_id, :session_id, :coach_id, :score)");
 
         $this->bind(":team_id",$team_id);

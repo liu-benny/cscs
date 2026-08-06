@@ -29,8 +29,8 @@
             <div class="col-sm-4">
                 <select id="gender_input" class="form-control" name="gender">
                     <option selected hidden><?= $data['clubmember']->gender ?></option>
-                    <option>Male</option>
-                    <option>Female</option>
+                    <option>Boy</option>
+                    <option>Girl</option>
                 </select>  
             </div>
         </div>

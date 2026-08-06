@@ -10,7 +10,7 @@
   define('DB_HOST', 'localhost');
   define('DB_USER', 'root');
   define('DB_PASS', '');
-  define('DB_NAME', 'cscs1');
+  define('DB_NAME', 'cscs2');
 
   // To test to connect to school database:
   // define('URLROOT', 'http://wrc353.encs.concordia.ca/~wrc353_1/cscs');
