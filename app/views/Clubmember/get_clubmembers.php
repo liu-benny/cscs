@@ -50,6 +50,7 @@
         <td><?= $clubmember->province?></td>
         <td><?= $clubmember->postal_code ?></td>
         <td><a class="btn btn-sm btn-secondary" href="<?= URLROOT; ?>/ClubMember/edit_clubmember/<?= $clubmember->membership_number ?>">Edit</a></td>
+        <td><a class="btn btn-sm btn-success" href="<?= URLROOT; ?>/Payment/make_payment/<?= $clubmember->membership_number ?>">Make Payment</a></td>
       </tr>
     <?php endforeach; ?>
     </tr>
