@@ -1,15 +1,92 @@
 <?php require APPROOT . '/views/includes/header.php';  ?>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
- 
+<?php if (isset($_GET['deleted']) && $_GET['deleted'] === '1'): ?>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="<?=URLROOT; ?>/FamilyMember/add_familymember">Add New Family Member</a>
-      </li>
-    </li>
-</div>
+    <div class="alert alert-success alert-dismissible fade show"
+         role="alert">
+
+        Family member deleted successfully!
+
+        <button type="button"
+                class="close"
+                data-dismiss="alert"
+                aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+
+    </div>
+
+<?php endif; ?>
+
+
+<?php if (isset($_GET['delete_error'])): ?>
+
+    <div class="alert alert-danger">
+        The family member could not be deleted.
+    </div>
+
+<?php endif; ?>
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+
+    <div class="collapse navbar-collapse"
+         id="navbarSupportedContent">
+
+        <ul class="navbar-nav mr-3">
+
+            <li class="nav-item">
+                <a class="nav-link"
+                   href="<?= URLROOT ?>/FamilyMember/add_familymember">
+                    Add New Family Member
+                </a>
+            </li>
+
+        </ul>
+
+        <form method="GET"
+              action="<?= URLROOT ?>/FamilyMember/index"
+              class="form-inline mb-0">
+
+            <input type="text"
+                   name="search"
+                   class="form-control mr-2"
+                   style="width: 350px;"
+                   placeholder="Search by ID, name, SSN, Medicare..."
+                   value="<?= htmlspecialchars(
+                       $data['search_value'] ?? '',
+                       ENT_QUOTES,
+                       'UTF-8'
+                   ) ?>">
+
+            <button type="submit"
+                    class="btn btn-primary mr-2">
+                Search
+            </button>
+
+            <a href="<?= URLROOT ?>/FamilyMember/index"
+               class="btn btn-secondary">
+                Clear
+            </a>
+
+        </form>
+
+    </div>
+
 </nav>
+
+<?php if (
+    !empty($data['search_value']) &&
+    empty($data['familymembers'])
+): ?>
+
+    <div class="alert alert-warning">
+        No family members matched
+        "<strong><?= htmlspecialchars(
+            $data['search_value'],
+            ENT_QUOTES,
+            'UTF-8'
+        ) ?></strong>".
+    </div>
+
+<?php endif; ?>
 
 <table class="table table-striped">
   <h3>List of Family Members</h3>
@@ -45,7 +122,7 @@
         <td><?= $familymember->postal_code ?></td>
         <td><?= $familymember->email ?></td>
         <td><a class="btn btn-sm btn-secondary" href="<?= URLROOT; ?>/FamilyMember/edit_familymember/<?= $familymember->family_member_id ?>">Edit</a></td>
-      </tr>
+      
     <?php endforeach; ?>
     </tr>
   </tbody>

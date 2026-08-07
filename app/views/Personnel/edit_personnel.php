@@ -113,6 +113,13 @@
     </div>
 
     <button class="btn btn-primary" type="submit" name="submit">Update Personnel</button>
+    <button class="btn btn-danger"
+        type="submit"
+        formaction="<?= URLROOT ?>/Personnel/delete_personnel/<?= (int) $data['personnel']->personnel_id ?>"
+        formmethod="POST"
+        onclick="return confirm('Are you sure you want to delete this personnel and all related records?');">
+    Delete Personnel
+</button>
 </form>
 
 
