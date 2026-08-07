@@ -76,6 +76,76 @@ class location_model extends Model{
         $this->query("SELECT LAST_INSERT_ID() AS location_id");
         return $this->getSingle();
     }
+public function search_locations($search_value)
+{
+    $search_pattern = '%' . $search_value . '%';
+
+    $this->query(
+        "SELECT *
+         FROM Location
+         WHERE CAST(location_id AS CHAR) LIKE :location_id
+            OR location_type LIKE :location_type
+            OR location_name LIKE :location_name
+            OR address LIKE :address
+            OR city LIKE :city
+            OR province LIKE :province
+            OR postal_code LIKE :postal_code
+            OR web_address LIKE :web_address
+            OR CAST(max_capacity AS CHAR) LIKE :max_capacity
+            OR EXISTS (
+                SELECT 1
+                FROM LocationPhone
+                WHERE LocationPhone.location_id =
+                      Location.location_id
+                  AND LocationPhone.phone_number
+                      LIKE :phone_number
+            )
+         ORDER BY location_name"
+    );
+
+    $this->bind(":location_id", $search_pattern);
+    $this->bind(":location_type", $search_pattern);
+    $this->bind(":location_name", $search_pattern);
+    $this->bind(":address", $search_pattern);
+    $this->bind(":city", $search_pattern);
+    $this->bind(":province", $search_pattern);
+    $this->bind(":postal_code", $search_pattern);
+    $this->bind(":web_address", $search_pattern);
+    $this->bind(":max_capacity", $search_pattern);
+    $this->bind(":phone_number", $search_pattern);
+
+    return $this->getResultSet();
+}
+public function delete_location($location_id)
+{
+    $tables = [
+        "LocationPhone",
+        "PlaysAt",
+        "EmailLog",
+        "EmployedAt",
+        "AssignedTo",
+        "Manages"
+    ];
+
+    foreach ($tables as $table) {
+        $this->query(
+            "DELETE FROM $table
+             WHERE location_id = :location_id"
+        );
+
+        $this->bind(":location_id", $location_id);
+        $this->execute();
+    }
+
+    $this->query(
+        "DELETE FROM Location
+         WHERE location_id = :location_id"
+    );
+
+    $this->bind(":location_id", $location_id);
+
+    return $this->execute();
+}
 }
 
 ?>

@@ -8,7 +8,7 @@ class Location extends Controller
         $this->location_model = $this->model('location_model');
     }
 
-    public function index()
+   /* public function index()
     {
         $locations = $this->location_model->get_locations();
 
@@ -20,7 +20,39 @@ class Location extends Controller
             'locations' => $locations
         ];
         $this->view('Location/get_locations',$data);
+    }*/
+public function index()
+{
+    $search_value = '';
+
+    if (isset($_GET['search'])) {
+        $search_value = trim($_GET['search']);
     }
+
+    if ($search_value !== '') {
+        $locations =
+            $this->location_model
+                 ->search_locations($search_value);
+    } else {
+        $locations =
+            $this->location_model->get_locations();
+    }
+
+    foreach ($locations as $location) {
+        $location->phones =
+            $this->location_model
+                 ->get_location_phone_numbers(
+                     $location->location_id
+                 );
+    }
+
+    $data = [
+        'locations' => $locations,
+        'search_value' => $search_value
+    ];
+
+    $this->view('Location/get_locations', $data);
+}
 
     public function add_location(){
         if(!isset($_POST['submit'])){
@@ -98,6 +130,41 @@ class Location extends Controller
             }
         }
     }
+public function delete_location($location_id)
+{
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        header(
+            'Location: ' . URLROOT .
+            '/Location/index'
+        );
+        exit;
+    }
+
+    $location =
+        $this->location_model->get_location($location_id);
+
+    if (!isset($location->location_id)) {
+        header(
+            'Location: ' . URLROOT .
+            '/Location/index?delete_error=not_found'
+        );
+        exit;
+    }
+
+    if ($this->location_model->delete_location($location_id)) {
+        header(
+            'Location: ' . URLROOT .
+            '/Location/index?deleted=1'
+        );
+        exit;
+    }
+
+    header(
+        'Location: ' . URLROOT .
+        '/Location/index?delete_error=1'
+    );
+    exit;
+}
 
 }
 

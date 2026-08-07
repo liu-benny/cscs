@@ -12,13 +12,30 @@ class FamilyMember extends Controller {
         $this->familymember_model = $this->model('familymember_model');
     }
 
-    public function index(){
-        $familymembers = $this->familymember_model->get_familymembers();
-        $data = [
-            "familymembers" => $familymembers
-        ];
-        $this->view('FamilyMember/get_familymembers',$data);
+   public function index()
+{
+    $search_value = '';
+
+    if (isset($_GET['search'])) {
+        $search_value = trim($_GET['search']);
     }
+
+    if ($search_value !== '') {
+        $familymembers =
+            $this->familymember_model
+                 ->search_familymembers($search_value);
+    } else {
+        $familymembers =
+            $this->familymember_model->get_familymembers();
+    }
+
+    $data = [
+        'familymembers' => $familymembers,
+        'search_value' => $search_value
+    ];
+
+    $this->view('FamilyMember/get_familymembers', $data);
+}
 
     public function add_familymember(){
         if(!isset($_POST['submit'])){
@@ -138,7 +155,45 @@ class FamilyMember extends Controller {
         }
         
     }
+public function delete_familymember($family_member_id)
+{
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        header(
+            'Location: ' . URLROOT .
+            '/FamilyMember/index'
+        );
+        exit;
+    }
 
+    $familymember =
+        $this->familymember_model
+             ->get_familymember($family_member_id);
+
+    if (!isset($familymember->family_member_id)) {
+        header(
+            'Location: ' . URLROOT .
+            '/FamilyMember/index?delete_error=not_found'
+        );
+        exit;
+    }
+
+    if (
+        $this->familymember_model
+             ->delete_familymember($family_member_id)
+    ) {
+        header(
+            'Location: ' . URLROOT .
+            '/FamilyMember/index?deleted=1'
+        );
+        exit;
+    }
+
+    header(
+        'Location: ' . URLROOT .
+        '/FamilyMember/index?delete_error=1'
+    );
+    exit;
+}
     
 }
 

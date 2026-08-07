@@ -10,13 +10,36 @@ class Personnel extends Controller {
         $this->location_model = $this->model('location_model');
     }
 
-    public function index(){
+    /*public function index(){
         $personnels = $this->personnel_model->get_personnels();
         $data = [
             "personnels" => $personnels
         ];
         $this->view('Personnel/get_personnels',$data);
+    }*/
+public function index()
+{
+    $search_value = '';
+
+    if (isset($_GET['search'])) {
+        $search_value = trim($_GET['search']);
     }
+
+    if ($search_value !== '') {
+        $personnels =
+            $this->personnel_model->search_personnels($search_value);
+    } else {
+        $personnels =
+            $this->personnel_model->get_personnels();
+    }
+
+    $data = [
+        'personnels' => $personnels,
+        'search_value' => $search_value
+    ];
+
+    $this->view('Personnel/get_personnels', $data);
+}
 
     public function add_personnel(){
         if(!isset($_POST['submit'])){
@@ -134,6 +157,39 @@ class Personnel extends Controller {
                 }
             }
         }
+
+        public function delete_personnel($personnel_id)
+{
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        header('Location: ' . URLROOT . '/Personnel/index');
+        exit;
+    }
+
+    $personnel =
+        $this->personnel_model->get_personnel($personnel_id);
+
+    if (!isset($personnel->personnel_id)) {
+        header(
+            'Location: ' . URLROOT .
+            '/Personnel/index?delete_error=not_found'
+        );
+        exit;
+    }
+
+    if ($this->personnel_model->delete_personnel($personnel_id)) {
+        header(
+            'Location: ' . URLROOT .
+            '/Personnel/index?deleted=1'
+        );
+        exit;
+    }
+
+    header(
+        'Location: ' . URLROOT .
+        '/Personnel/index?delete_error=1'
+    );
+    exit;
+}
 }
 
     
