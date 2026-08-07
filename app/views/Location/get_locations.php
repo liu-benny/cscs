@@ -38,7 +38,11 @@
         <td><?= $location->city ?></td>
         <td><?= $location->province?></td>
         <td><?= $location->postal_code ?></td>
-        <td><?= $location->phone_number ?></td>
+        <td>
+          <?php foreach ($location->phones as $phone): ?>
+            <?= $phone->phone_number ?><br>
+          <?php endforeach; ?>
+        </td>
         <td><?= $location->web_address ?></td>
         <td><?= $location->max_capacity ?></td>
         <td><a class="btn btn-sm btn-secondary" href="<?= URLROOT; ?>/Location/edit_location/<?= $location->location_id ?>">Edit</a></td>

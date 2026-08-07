@@ -56,11 +56,12 @@
 
     <div class="form-group row">
         <label for="phone_number_input" class="col-sm-2 col-form-label">Phone Number</label>
-        <div class="col-sm-10">
-        <input type="tel" class="form-control" id="phone_number_input" name="phone_number" placeholder="Phone Number"  required>
+        <div class="col-sm-10" id="phone-inputs-container">
+        <input type="tel" class="form-control phone-input-field" id="phone_number_input" name="phone_number[]" placeholder="Phone Number"  required>
         </div>
-    </div>
+        <button type="button" id="add-btn" class="btn btn-info" onclick="addPhoneInput()">Add More Phone Number</button>
 
+    </div>
     <div class="form-group row">
         <label for="web_address_input" class="col-sm-2 col-form-label">Web Address</label>
         <div class="col-sm-10">

@@ -51,12 +51,44 @@
     </div>
   </div>
 
-    <div class="form-group row">
+    <!-- <div class="form-group row">
         <label for="phone_number_input" class="col-sm-2 col-form-label">Phone Number</label>
-        <div class="col-sm-10">
-        <input type="text" class="form-control" id="phone_number_input" name="phone_number" value="<?= $data['location']->phone_number ?>">
+        <div class="col-sm-10" id="phone-inputs-container">
+        <?php foreach($data['phones'] as $phone): ?>
+            <input type="tel" class="form-control phone-input-field" id="phone_number_input" name="phone_number[]" value="<?= $phone->phone_number ?>">
+        <?php endforeach; ?>
         </div>
-    </div>
+        <button type="button" id="add-btn" class="btn btn-primary" onclick="addPhoneInput()">Add More Phone Number</button>
+    </div> -->
+
+          <div class="form-group row"> 
+  <label class="col-sm-2 col-form-label">Phone Number</label> 
+  <div class="col-sm-10" id="phone-inputs-container"> 
+    
+    <!-- Loop through database numbers -->
+    <?php foreach($data['phones'] as $index => $phone): ?>
+      <!-- Added the wrapper div with the 'phone-row' tracking class -->
+      <div class="input-group mb-2 phone-row">
+        
+        <!-- Removed duplicate ID. Added required attribute to the very first item -->
+        <input type="tel" 
+               class="form-control phone-input-field" 
+               name="phone_number[]" 
+               value="<?= htmlspecialchars($phone->phone_number) ?>" 
+               placeholder="Phone Number" 
+               <?= $index === 0 ? 'required' : '' ?>>
+               
+        <!-- Added the matching remove button structure -->
+        <div class="input-group-append">
+          <button type="button" class="btn btn-danger" onclick="removePhoneRow(this)">Remove</button>
+        </div>
+        
+      </div>
+    <?php endforeach; ?>
+    
+  </div> 
+  <button type="button" id="add-btn" class="btn btn-info" onclick="addPhoneInput()">Add More Phone Number</button> 
+</div>
 
     <div class="form-group row">
         <label for="web_address_input" class="col-sm-2 col-form-label">Web Address</label>
