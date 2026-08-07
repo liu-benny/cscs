@@ -34,12 +34,18 @@ function formatPhoneNumber(value) {
   return digits.slice(0, 3) + '-' + digits.slice(3, 6) + '-' + digits.slice(6);
 }
 
-const phoneInput = document.getElementById('phone_number_input');
-if (phoneInput) {
-  phoneInput.addEventListener('input', function () {
-    this.value = formatPhoneNumber(this.value);
-  });
-}
+// const phoneInput = document.getElementById('phone_number_input');
+// if (phoneInput) {
+//   phoneInput.addEventListener('input', function () {
+//     this.value = formatPhoneNumber(this.value);
+//   });
+// }
+
+document.addEventListener('input', function (e) {
+  if (e.target && e.target.classList.contains('phone-input-field')) {
+    e.target.value = formatPhoneNumber(e.target.value);
+  }
+});
 
 document.addEventListener('DOMContentLoaded', function () {
   const form = document.querySelector('form[action$="/Personnel/add_personnel"]') || document.querySelector('form');
@@ -62,15 +68,55 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
+// 1. Add this brand new function to safely handle row removal
+function removePhoneRow(buttonElement) {
+  const container = document.getElementById('phone-inputs-container');
+  // Count how many total phone rows exist right now
+  const totalRows = container.getElementsByClassName('phone-row').length;
+
+  // Only allow removal if there is more than 1 row remaining
+  if (totalRows > 1) {
+    buttonElement.closest('.phone-row').remove();
+  } else {
+    alert("You must keep at least one phone number field.");
+  }
+}
+
 function addPhoneInput() {
-      const container = document.getElementById('input-container');
-      
-      // Create a new input element
-      const newInput = document.createElement('input');
-      newInput.type = 'text';
-      newInput.className = 'form-control mb-2';
-      newInput.placeholder = 'Enter additional phone number';
-      
-      // Append it to the container div
-      container.appendChild(newInput);
-    }
+  const container = document.getElementById('phone-inputs-container');
+  
+  // 1. Added the 'phone-row' class here to match the HTML loop structure
+  const rowWrapper = document.createElement('div');
+  rowWrapper.className = 'input-group mb-2 phone-row'; 
+
+  // 2. Create your phone input element
+  const newInput = document.createElement('input');
+  newInput.type = 'tel';
+  newInput.className = 'form-control phone-input-field'; 
+  newInput.placeholder = 'Enter additional phone number';
+  newInput.name = 'phone_number[]';
+  newInput.required = true; 
+
+  // 3. Create a wrapper div for the button appending element
+  const buttonAppend = document.createElement('div');
+  buttonAppend.className = 'input-group-append';
+
+  // 4. Create the Bootstrap style Danger / Remove button
+  const removeBtn = document.createElement('button');
+  removeBtn.type = 'button';
+  removeBtn.className = 'btn btn-danger';
+  removeBtn.innerHTML = 'Remove'; 
+
+  // 5. Updated this event listener to call our safe deletion helper function
+  removeBtn.addEventListener('click', function() {
+    removePhoneRow(this);
+  });
+
+  // 6. Assemble the components together inside the DOM
+  buttonAppend.appendChild(removeBtn);
+  rowWrapper.appendChild(newInput);
+  rowWrapper.appendChild(buttonAppend);
+
+  // 7. Inject the complete dynamic row group into your parent block
+  container.appendChild(rowWrapper);
+}
