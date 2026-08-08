@@ -98,7 +98,7 @@ class familymember_model extends Model{
     // }
 
     public function add_relationship($family_member_id, $membership_number, $relationship, $start_date){
-        $this->query("INSERT INTO RelatedTo (familymember_id, membership_number, relationship, start_date) VALUES (:family_member_id, :membership_number, :relationship, :start_date)");
+        $this->query("INSERT INTO RelatedTo (family_member_id, membership_number, relationship, start_date) VALUES (:family_member_id, :membership_number, :relationship, :start_date)");
         $this->bind(":family_member_id",$family_member_id);
         $this->bind(":membership_number",$membership_number);
         $this->bind(":relationship", $relationship);

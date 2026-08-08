@@ -62,8 +62,48 @@ class clubmember_model extends Model{
         return $this->execute();
     }
 
-    
+    public function get_clubmember_location($membership_number){
+        $this->query("SELECT location.location_id, location.location_name FROM MemberLocation 
+                        JOIN location ON MemberLocation.location_id = location.location_id 
+                        WHERE MemberLocation.membership_number = :membership_number AND end_date IS NULL");
+        $this->bind(":membership_number",$membership_number);
+        return $this->getSingle();
+    }
+
+    public function add_clubmember_location($membership_number, $location_id,$start_date,$end_date){
+
+        if($end_date == ""){
+            $this->query("INSERT INTO MemberLocation (membership_number, location_id, start_date, end_date) VALUES (:membership_number, :location_id, :start_date, NULL)");
+        }
+        else{
+            $this->query("INSERT INTO MemberLocation (membership_number, location_id, start_date, end_date) VALUES (:membership_number, :location_id, :start_date, :end_date)");
+            $this->bind(":end_date",$end_date);
+        }
+        $this->bind(":membership_number",$membership_number);
+        $this->bind(":location_id",$location_id);
+        $this->bind(":start_date",$start_date);
+
+        return $this->execute();
+    }
+
+    public function old_clubmember_location_ends($membership_number, $location_id){
+        $this->query("UPDATE MemberLocation SET end_date = CURDATE() WHERE membership_number = :membership_number AND location_id = :location_id AND end_date IS NULL");
+        $this->bind(":membership_number",$membership_number);
+        $this->bind(":location_id",$location_id);
+        return $this->execute();
+    }
+
+    public function get_latest_membership_number(){
+        $this->query("SELECT membership_number FROM ClubMember ORDER BY membership_number DESC LIMIT 1");
+        return $this->getSingle();
+    }
+
+    public function add_relationship($membership_number, $family_member_id, $relationship){
+        $this->query("INSERT INTO RelatedTo (membership_number, family_member_id, relationship_type) VALUES (:membership_number, :family_member_id, :relationship)");
+        $this->bind(":membership_number",$membership_number);
+        $this->bind(":family_member_id",$family_member_id);
+        $this->bind(":relationship", $relationship);
+        return $this->execute();
+    }
 
 }
-
-?>
