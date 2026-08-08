@@ -12,13 +12,35 @@ class ClubMember extends Controller{
         $this->familymember_model = $this->model('familymember_model');
     }
 
-    public function index(){
+  /*  public function index(){
         $clubmembers = $this->clubmember_model->get_clubmembers();
         $data = [
             "clubmembers" => $clubmembers
         ];
         $this->view('ClubMember/get_clubmembers',$data);
+    }*/
+    public function index()
+{
+    $search_value = '';
+
+    if (isset($_GET['search'])) {
+        $search_value = trim($_GET['search']);
     }
+    if ($search_value !== '') {
+        $clubmembers =
+            $this->clubmember_model->search_clubmembers($search_value);
+    } else {
+        $clubmembers =
+            $this->clubmember_model->get_clubmembers();
+    }
+
+    $data = [
+        'clubmembers' => $clubmembers,
+        'search_value' => $search_value
+    ];
+
+    $this->view('ClubMember/get_clubmembers', $data);
+}
 
     public function add_clubmember(){
         if(!isset($_POST['submit'])){
@@ -179,7 +201,27 @@ class ClubMember extends Controller{
         }
     }
 
+public function delete_clubmember($membership_number)
+{
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        header('Location: ' . URLROOT . '/ClubMember/index');
+        exit;
+    }
+
+    if ($this->clubmember_model->delete_clubmember($membership_number)) {
+        header(
+            'Location: ' . URLROOT .
+            '/ClubMember/index?deleted=1'
+        );
+        exit;
+    }
+
+    echo 'Unable to delete the club member.';
 }
+
+}
+
+
 
 
 ?>

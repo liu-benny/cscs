@@ -105,6 +105,13 @@
     </div>
 
     <button class="btn btn-primary" type="submit" name="submit">Update Location</button>
+    <button class="btn btn-danger"
+        type="submit"
+        formaction="<?= URLROOT ?>/Location/delete_location/<?= (int) $data['location']->location_id ?>"
+        formmethod="POST"
+        onclick="return confirm('Are you sure you want to delete this location and all related records?');">
+    Delete Location
+</button>
 </form>
 
 
