@@ -1,213 +1,250 @@
-USE cscs2;
-
--- 1. Insert Locations (with max_capacity attribute)
+-- 1. Locations (At least 7)
 INSERT INTO Location (location_name, location_type, address, city, province, postal_code, web_address, max_capacity) VALUES
-('Downtown Field', 'Head', '100 Main St', 'Montreal', 'QC', 'H1A 1A1', 'www.head.com', 1000),
-('North Branch', 'Branch', '200 North St', 'Montreal', 'QC', 'H2B 2B2', 'www.north.com', 500),
-('South Branch', 'Branch', '300 South St', 'Montreal', 'QC', 'H3C 3C3', 'www.south.com', 400),
-('East Branch', 'Branch', '400 East St', 'Montreal', 'QC', 'H4D 4D4', 'www.east.com', 450),
-('West Branch', 'Branch', '500 West St', 'Montreal', 'QC', 'H5E 5E5', 'www.west.com', 600),
-('Central Branch', 'Branch', '600 Center St', 'Montreal', 'QC', 'H6F 6F6', 'www.central.com', 800);
+('Olympic Stadium Field', 'Head', '4141 Pierre-de Coubertin Ave', 'Montreal', 'QC', 'H1V3N7', 'www.olympicstadium.ca', 1000),
+('Saputo Stadium Branch', 'Branch', '4750 Sherbrooke St E', 'Montreal', 'QC', 'H1V3S8', 'www.saputo.ca', 500),
+('Claude-Robillard Center', 'Branch', '1000 Emile-Journault Ave', 'Montreal', 'QC', 'H2M2E7', 'www.clauderobillard.ca', 400),
+('Bell Sports Complex', 'Branch', '8000 Leduc Blvd', 'Brossard', 'QC', 'J4Y0E9', 'www.bellsports.ca', 450),
+('Laval Multi-Sports', 'Branch', '3095 Le Carrefour Blvd', 'Laval', 'QC', 'H7T2R5', 'www.lavalsports.ca', 600),
+('Westmount Rec Center', 'Branch', '4675 Saint-Catherine St W', 'Westmount', 'QC', 'H3Z1S4', 'www.westmountrec.ca', 800),
+('Pierrefonds Sportsplex', 'Branch', '14700 Pierrefonds Blvd', 'Montreal', 'QC', 'H9H4Y6', 'www.sportsplex.ca', 550);
 
--- Multiple phone numbers per location
+-- 2. LocationPhone
 INSERT INTO LocationPhone (location_id, phone_number) VALUES
-(1, '514-111-1111'), (1, '514-111-1112'), (1, '514-111-1113'),
-(2, '514-222-2222'), (2, '514-222-2223'),
-(3, '514-333-3333'), (3, '514-333-3334'),
-(4, '514-444-4444'), (4, '514-444-4445'),
-(5, '514-555-5555'), (5, '514-555-5556'),
-(6, '514-666-6666'), (6, '514-666-6667');
+(1, '514-111-1111'), (2, '514-222-2222'), (3, '514-333-3333'), 
+(4, '514-444-4444'), (5, '514-555-5555'), (6, '514-666-6666'), 
+(7, '514-777-7777');
 
--- 2. Insert Personnel & Manages (including email, phone number, address, city, province, postal code)
-INSERT INTO Personnel (first_name, last_name, ssn, medicare_number, date_of_birth, personnel_role, mandate, email, phone_number, address, city, province, postal_code) VALUES
-('Alice', 'Smith', '100000001', 'MED101', '1980-01-01', 'Administrator', 'Salaried', 'alice.smith@cscs.com', '514-701-0001', '111 Peel St', 'Montreal', 'QC', 'H3B 2T9'),
-('Bob', 'Johnson', '100000002', 'MED102', '1980-01-01', 'Administrator', 'Salaried', 'bob.johnson@cscs.com', '514-702-0002', '222 Sainte-Catherine St W', 'Montreal', 'QC', 'H3B 1A2'),
-('Charlie', 'Williams', '100000003', 'MED103', '1980-01-01', 'Administrator', 'Salaried', 'charlie.williams@cscs.com', '514-703-0003', '333 René-Lévesque Blvd W', 'Montreal', 'QC', 'H2Z 1X7'),
-('Diana', 'Brown', '100000004', 'MED104', '1980-01-01', 'Administrator', 'Salaried', 'diana.brown@cscs.com', '514-704-0004', '444 Sherbrooke St W', 'Montreal', 'QC', 'H3A 1B9'),
-('Eve', 'Jones', '100000005', 'MED105', '1980-01-01', 'Administrator', 'Salaried', 'eve.jones@cscs.com', '514-705-0005', '555 de Maisonneuve Blvd W', 'Montreal', 'QC', 'H3A 3K2'),
-('Frank', 'Garcia', '100000006', 'MED106', '1980-01-01', 'Administrator', 'Salaried', 'frank.garcia@cscs.com', '514-706-0006', '666 McGill College Ave', 'Montreal', 'QC', 'H3A 3H5'),
-('Grace', 'Martinez', '200000001', 'MED201', '1975-05-05', 'Coach', 'Volunteer', 'grace.martinez@cscs.com', '514-801-0001', '777 St-Laurent Blvd', 'Montreal', 'QC', 'H2X 2Y9'),
-('Harry', 'Rodriguez', '200000002', 'MED202', '1976-06-06', 'Coach', 'Volunteer', 'harry.rodriguez@cscs.com', '514-802-0002', '888 Saint-Denis St', 'Montreal', 'QC', 'H2X 3J3'),
-('Ivy', 'Hernandez', '200000003', 'MED203', '1977-07-07', 'Coach', 'Volunteer', 'ivy.hernandez@cscs.com', '514-803-0003', '999 Park Ave', 'Montreal', 'QC', 'H2V 4P2'),
-('Jack', 'Lopez', '200000004', 'MED204', '1978-08-08', 'Coach', 'Volunteer', 'jack.lopez@cscs.com', '514-804-0004', '123 Pine Ave W', 'Montreal', 'QC', 'H2W 1S3'),
-('Karen', 'Gonzalez', '200000005', 'MED205', '1979-09-09', 'Coach', 'Volunteer', 'karen.gonzalez@cscs.com', '514-805-0005', '456 Mont-Royal Ave E', 'Montreal', 'QC', 'H2J 1W8'),
-('Liam', 'Wilson', '200000006', 'MED206', '1980-10-10', 'Coach', 'Volunteer', 'liam.wilson@cscs.com', '514-806-0006', '789 Rachel St E', 'Montreal', 'QC', 'H2J 2H3');
+-- 3. Personnel (At least 20 real names)
+-- Note: Personnel 17-20 will share SSNs with Family Members 1-4 for Q17 & Q19 overlap
+INSERT INTO Personnel (first_name, last_name, ssn, medicare_number, date_of_birth, address, city, province, postal_code, phone_number, email, personnel_role, mandate) VALUES
+('David', 'Wallace', '100000001', 'M101', '1965-11-05', '111 Corporate Dr', 'Montreal', 'QC', 'H1H1H1', '514-100-0001', 'd.wallace@club.com', 'Administrator', 'Salaried'),
+('Charles', 'Miner', '100000002', 'M102', '1972-04-12', '222 Steel St', 'Montreal', 'QC', 'H1H1H2', '514-100-0002', 'c.miner@club.com', 'Administrator', 'Salaried'),
+('Jan', 'Levinson', '100000003', 'M103', '1968-09-21', '333 Candle Ln', 'Montreal', 'QC', 'H1H1H3', '514-100-0003', 'j.levinson@club.com', 'Administrator', 'Salaried'),
+('Robert', 'California', '100000004', 'M104', '1960-01-15', '444 Lizard King', 'Montreal', 'QC', 'H1H1H4', '514-100-0004', 'r.california@club.com', 'Administrator', 'Salaried'),
+('Jo', 'Bennett', '100000005', 'M105', '1955-08-08', '555 Sabre Way', 'Montreal', 'QC', 'H1H1H5', '514-100-0005', 'j.bennett@club.com', 'Administrator', 'Salaried'),
+('Gabe', 'Lewis', '100000006', 'M106', '1982-11-23', '666 Skeleton Park', 'Montreal', 'QC', 'H1H1H6', '514-100-0006', 'g.lewis@club.com', 'Administrator', 'Salaried'),
+('Holly', 'Flax', '100000007', 'M107', '1975-02-14', '777 Nashua Rd', 'Montreal', 'QC', 'H1H1H7', '514-100-0007', 'h.flax@club.com', 'Administrator', 'Salaried'),
+('Jurgen', 'Klopp', '200000008', 'M208', '1967-06-16', '888 Anfield Rd', 'Montreal', 'QC', 'H1H1H8', '514-200-0008', 'j.klopp@club.com', 'Coach', 'Volunteer'),
+('Carlo', 'Ancelotti', '200000009', 'M209', '1959-06-10', '999 Madrid Ave', 'Montreal', 'QC', 'H1H1H9', '514-200-0009', 'c.ancelotti@club.com', 'Coach', 'Volunteer'),
+('Zinedine', 'Zidane', '200000010', 'M210', '1972-06-23', '1010 Cannes Blvd', 'Montreal', 'QC', 'H1H1A1', '514-200-0010', 'z.zidane@club.com', 'Coach', 'Volunteer'),
+('Emma', 'Hayes', '200000011', 'M211', '1976-10-18', '1111 Chelsea Pl', 'Montreal', 'QC', 'H1H1A2', '514-200-0011', 'e.hayes@club.com', 'Coach', 'Volunteer'),
+('Sarina', 'Wiegman', '200000012', 'M212', '1969-10-26', '1212 Hague St', 'Montreal', 'QC', 'H1H1A3', '514-200-0012', 's.wiegman@club.com', 'Coach', 'Volunteer'),
+('Jill', 'Ellis', '200000013', 'M213', '1966-09-06', '1313 Portsmouth Dr', 'Montreal', 'QC', 'H1H1A4', '514-200-0013', 'j.ellis@club.com', 'Coach', 'Volunteer'),
+('Arsene', 'Wenger', '200000014', 'M214', '1949-10-22', '1414 Arsenal Way', 'Montreal', 'QC', 'H1H1A5', '514-200-0014', 'a.wenger@club.com', 'Coach', 'Volunteer'),
+('Jose', 'Mourinho', '200000015', 'M215', '1963-01-26', '1515 Special One', 'Montreal', 'QC', 'H1H1A6', '514-200-0015', 'j.mourinho@club.com', 'Coach', 'Volunteer'),
+('Diego', 'Simeone', '200000016', 'M216', '1970-04-28', '1616 Atletico Ave', 'Montreal', 'QC', 'H1H1A7', '514-200-0016', 'd.simeone@club.com', 'Coach', 'Volunteer'),
+('Ted', 'Lasso', '999000001', 'M991', '1976-05-15', '1717 Richmond St', 'Montreal', 'QC', 'H9H1A1', '514-999-0001', 't.lasso@club.com', 'Coach', 'Volunteer'),
+('Will', 'Beard', '999000002', 'M992', '1974-08-20', '1818 Pub Ln', 'Montreal', 'QC', 'H9H1A2', '514-999-0002', 'w.beard@club.com', 'Coach', 'Volunteer'),
+('Roy', 'Kent', '999000003', 'M993', '1980-09-12', '1919 Anger Rd', 'Montreal', 'QC', 'H9H1A3', '514-999-0003', 'r.kent@club.com', 'Coach', 'Volunteer'),
+('Nate', 'Shelley', '999000004', 'M994', '1985-11-30', '2020 West Ham Blvd', 'Montreal', 'QC', 'H9H1A4', '514-999-0004', 'n.shelley@club.com', 'Coach', 'Volunteer');
 
+-- 4. EmployedAt (Using NULL for active end_date)
+INSERT INTO EmployedAt (personnel_id, location_id, start_date, end_date) VALUES 
+(1, 1, '2020-01-01', NULL), (2, 2, '2020-01-01', NULL),
+(3, 3, '2020-01-01', NULL), (4, 4, '2020-01-01', NULL),
+(5, 5, '2020-01-01', NULL), (6, 6, '2020-01-01', NULL),
+(7, 7, '2020-01-01', NULL), (8, 1, '2020-01-01', NULL),
+(9, 2, '2020-01-01', NULL), (10, 3, '2020-01-01', NULL),
+(11, 4, '2020-01-01', NULL), (12, 5, '2020-01-01', NULL),
+(13, 6, '2020-01-01', NULL), (14, 7, '2020-01-01', NULL),
+(15, 1, '2020-01-01', NULL), (16, 2, '2020-01-01', NULL),
+(17, 1, '2020-01-01', NULL), (18, 2, '2020-01-01', NULL),
+(19, 3, '2020-01-01', NULL), (20, 4, '2020-01-01', NULL);
+
+-- 5. Manages
 INSERT INTO Manages (location_id, personnel_id) VALUES 
-(1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6);
+(1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7);
 
--- EmployedAt: Linking each personnel to a location of employment
-INSERT INTO EmployedAt (location_id, personnel_id, start_date) VALUES 
-(1, 1, '2020-01-15'), 
-(2, 2, '2019-05-10'), 
-(3, 3, '2021-03-01'), 
-(4, 4, '2018-11-20'), 
-(5, 5, '2022-07-05'), 
-(6, 6, '2017-09-12'),
-(1, 7, '2023-02-10'), 
-(2, 8, '2023-04-15'), 
-(3, 9, '2022-08-20'), 
-(4, 10, '2021-06-11'), 
-(5, 11, '2020-10-01'), 
-(6, 12, '2024-01-05');
+-- 6. FamilyMembers (At least 10, sharing 4 SSNs with personnel 17-20)
+INSERT INTO FamilyMember (first_name, last_name, ssn, medicare_number, date_of_birth, address, city, province, postal_code, phone_number, email) VALUES
+('Ted', 'Lasso', '999000001', 'FM991', '1976-05-15', '1717 Richmond St', 'Montreal', 'QC', 'H9H1A1', '514-999-0001', 't.lasso@fam.com'),
+('Will', 'Beard', '999000002', 'FM992', '1974-08-20', '1818 Pub Ln', 'Montreal', 'QC', 'H9H1A2', '514-999-0002', 'w.beard@fam.com'),
+('Roy', 'Kent', '999000003', 'FM993', '1980-09-12', '1919 Anger Rd', 'Montreal', 'QC', 'H9H1A3', '514-999-0003', 'r.kent@fam.com'),
+('Nate', 'Shelley', '999000004', 'FM994', '1985-11-30', '2020 West Ham Blvd', 'Montreal', 'QC', 'H9H1A4', '514-999-0004', 'n.shelley@fam.com'),
+('Homer', 'Simpson', '888000005', 'FM885', '1956-05-12', '742 Evergreen Terr', 'Montreal', 'QC', 'H8H1A5', '514-888-0005', 'h.simpson@fam.com'),
+('Marge', 'Simpson', '888000006', 'FM886', '1958-10-01', '742 Evergreen Terr', 'Montreal', 'QC', 'H8H1A6', '514-888-0006', 'm.simpson@fam.com'),
+('Ned', 'Flanders', '888000007', 'FM887', '1955-08-15', '744 Evergreen Terr', 'Montreal', 'QC', 'H8H1A7', '514-888-0007', 'n.flanders@fam.com'),
+('Julius', 'Hibbert', '888000008', 'FM888', '1954-07-07', '123 Hospital Way', 'Montreal', 'QC', 'H8H1A8', '514-888-0008', 'j.hibbert@fam.com'),
+('Clancy', 'Wiggum', '888000009', 'FM889', '1957-12-25', '456 Police Pl', 'Montreal', 'QC', 'H8H1A9', '514-888-0009', 'c.wiggum@fam.com'),
+('Apu', 'Nahasapeemapetilon', '888000010', 'FM890', '1961-02-14', '789 KwikEMart Rd', 'Montreal', 'QC', 'H8H1B1', '514-888-0010', 'a.nahasapeemapetilon@fam.com');
 
--- 3. Insert Family Members (including email, phone number, address, city, province, postal code)
-INSERT INTO FamilyMember (first_name, last_name, ssn, medicare_number, date_of_birth, email, phone_number, address, city, province, postal_code) VALUES
-('Grace', 'Martinez', '200000001', 'F_MED201', '1975-05-05', 'grace.martinez@family.com', '514-801-0001', '777 St-Laurent Blvd', 'Montreal', 'QC', 'H2X 2Y9'),
-('Harry', 'Rodriguez', '200000002', 'F_MED202', '1976-06-06', 'harry.rodriguez@family.com', '514-802-0002', '888 Saint-Denis St', 'Montreal', 'QC', 'H2X 3J3'),
-('Ivy', 'Hernandez', '200000003', 'F_MED203', '1977-07-07', 'ivy.hernandez@family.com', '514-803-0003', '999 Park Ave', 'Montreal', 'QC', 'H2V 4P2'),
-('Jack', 'Lopez', '200000004', 'F_MED204', '1978-08-08', 'jack.lopez@family.com', '514-804-0004', '123 Pine Ave W', 'Montreal', 'QC', 'H2W 1S3'),
-('Karen', 'Gonzalez', '200000005', 'F_MED205', '1979-09-09', 'karen.gonzalez@family.com', '514-805-0005', '456 Mont-Royal Ave E', 'Montreal', 'QC', 'H2J 1W8'),
-('Liam', 'Wilson', '200000006', 'F_MED206', '1980-10-10', 'liam.wilson@family.com', '514-806-0006', '789 Rachel St E', 'Montreal', 'QC', 'H2J 2H3');
+-- 7. AssignedTo (Using NULL for active end_date)
+INSERT INTO AssignedTo (family_member_id, location_id, start_date, end_date) VALUES
+(1, 1, '2020-01-01', NULL), (2, 2, '2020-01-01', NULL),
+(3, 3, '2020-01-01', NULL), (4, 4, '2020-01-01', NULL),
+(5, 5, '2020-01-01', NULL), (6, 6, '2020-01-01', NULL),
+(7, 7, '2020-01-01', NULL), (8, 1, '2020-01-01', NULL),
+(9, 2, '2020-01-01', NULL), (10, 3, '2020-01-01', NULL);
 
--- 4. Insert Club Members (including email, phone number, address, city, province, postal code)
-INSERT INTO ClubMember (first_name, last_name, ssn, medicare_number, date_of_birth, gender, email, phone_number, address, city, province, postal_code) VALUES
-('Oliver', 'Martinez', '300000001', 'CM01', '2015-01-01', 'Boy', 'oliver.martinez@club.com', '514-901-0001', '777 St-Laurent Blvd', 'Montreal', 'QC', 'H2X 2Y9'),
-('Emma', 'Martinez', '300000002', 'CM02', '2016-01-01', 'Girl', 'emma.martinez@club.com', '514-901-0002', '777 St-Laurent Blvd', 'Montreal', 'QC', 'H2X 2Y9'),
-('Noah', 'Rodriguez', '300000003', 'CM03', '2015-02-01', 'Boy', 'noah.rodriguez@club.com', '514-902-0001', '888 Saint-Denis St', 'Montreal', 'QC', 'H2X 3J3'),
-('Olivia', 'Rodriguez', '300000004', 'CM04', '2016-02-01', 'Girl', 'olivia.rodriguez@club.com', '514-902-0002', '888 Saint-Denis St', 'Montreal', 'QC', 'H2X 3J3'),
-('Liam', 'Hernandez', '300000005', 'CM05', '2015-03-01', 'Boy', 'liam.hernandez@club.com', '514-903-0001', '999 Park Ave', 'Montreal', 'QC', 'H2V 4P2'),
-('Ava', 'Hernandez', '300000006', 'CM06', '2016-03-01', 'Girl', 'ava.hernandez@club.com', '514-903-0002', '999 Park Ave', 'Montreal', 'QC', 'H2V 4P2'),
-('Ethan', 'Lopez', '300000007', 'CM07', '2015-04-01', 'Boy', 'ethan.lopez@club.com', '514-904-0001', '123 Pine Ave W', 'Montreal', 'QC', 'H2W 1S3'),
-('Sophia', 'Lopez', '300000008', 'CM08', '2016-04-01', 'Girl', 'sophia.lopez@club.com', '514-904-0002', '123 Pine Ave W', 'Montreal', 'QC', 'H2W 1S3'),
-('Mason', 'Gonzalez', '300000009', 'CM09', '2015-05-01', 'Boy', 'mason.gonzalez@club.com', '514-905-0001', '456 Mont-Royal Ave E', 'Montreal', 'QC', 'H2J 1W8'),
-('Isabella', 'Gonzalez', '300000010', 'CM10', '2016-05-01', 'Girl', 'isabella.gonzalez@club.com', '514-905-0002', '456 Mont-Royal Ave E', 'Montreal', 'QC', 'H2J 1W8'),
-('William', 'Wilson', '300000011', 'CM11', '2015-06-01', 'Boy', 'william.wilson@club.com', '514-906-0001', '789 Rachel St E', 'Montreal', 'QC', 'H2J 2H3'),
-('Mia', 'Wilson', '300000012', 'CM12', '2016-06-01', 'Girl', 'mia.wilson@club.com', '514-906-0002', '789 Rachel St E', 'Montreal', 'QC', 'H2J 2H3'),
-('James', 'Taylor', '300000013', 'CM13', '1995-01-01', 'Boy', 'james.taylor@club.com', '514-913-0001', '10 Major St', 'Montreal', 'QC', 'H3G 1M8'),
-('Charlotte', 'Moore', '300000014', 'CM14', '1996-01-01', 'Girl', 'charlotte.moore@club.com', '514-914-0001', '20 Major St', 'Montreal', 'QC', 'H3G 1M9'),
-('Benjamin', 'Jackson', '300000015', 'CM15', '1997-01-01', 'Boy', 'benjamin.jackson@club.com', '514-915-0001', '30 Major St', 'Montreal', 'QC', 'H3G 2N1'),
-('Amelia', 'Martin', '300000016', 'CM16', '1998-01-01', 'Girl', 'amelia.martin@club.com', '514-916-0001', '40 Major St', 'Montreal', 'QC', 'H3G 2N2'),
-('Lucas', 'Lee', '300000017', 'CM17', '1999-01-01', 'Boy', 'lucas.lee@club.com', '514-917-0001', '50 Major St', 'Montreal', 'QC', 'H3G 2N3'),
-('Harper', 'Perez', '300000018', 'CM18', '2000-01-01', 'Girl', 'harper.perez@club.com', '514-918-0001', '60 Major St', 'Montreal', 'QC', 'H3G 2N4'),
-('Henry', 'Thompson', '300000019', 'CM19', '2005-01-01', 'Boy', 'henry.thompson@club.com', '514-919-0001', '70 Youth St', 'Montreal', 'QC', 'H4H 1K1'),
-('Evelyn', 'White', '300000020', 'CM20', '2005-02-01', 'Girl', 'evelyn.white@club.com', '514-920-0001', '80 Youth St', 'Montreal', 'QC', 'H4H 1K2'),
-('Alexander', 'Harris', '300000021', 'CM21', '2005-03-01', 'Boy', 'alexander.harris@club.com', '514-921-0001', '90 Youth St', 'Montreal', 'QC', 'H4H 1K3'),
-('Abigail', 'Sanchez', '300000022', 'CM22', '2005-04-01', 'Girl', 'abigail.sanchez@club.com', '514-922-0001', '100 Youth St', 'Montreal', 'QC', 'H4H 1K4'),
-('Sebastian', 'Clark', '300000023', 'CM23', '2005-05-01', 'Boy', 'sebastian.clark@club.com', '514-923-0001', '110 Youth St', 'Montreal', 'QC', 'H4H 1K5'),
-('Emily', 'Ramirez', '300000024', 'CM24', '2005-06-01', 'Girl', 'emily.ramirez@club.com', '514-924-0001', '120 Youth St', 'Montreal', 'QC', 'H4H 1K6'),
-('Michael', 'Lewis', '300000025', 'CM25', '2006-01-01', 'Boy', 'michael.lewis@club.com', '514-925-0001', '130 Youth St', 'Montreal', 'QC', 'H4H 1K7'),
-('Elizabeth', 'Robinson', '300000026', 'CM26', '2006-02-01', 'Girl', 'elizabeth.robinson@club.com', '514-926-0001', '140 Youth St', 'Montreal', 'QC', 'H4H 1K8'),
-('Daniel', 'Walker', '300000027', 'CM27', '2006-03-01', 'Boy', 'daniel.walker@club.com', '514-927-0001', '150 Youth St', 'Montreal', 'QC', 'H4H 1K9'),
-('Sofia', 'Young', '300000028', 'CM28', '2006-04-01', 'Girl', 'sofia.young@club.com', '514-928-0001', '160 Youth St', 'Montreal', 'QC', 'H4H 2L1'),
-('Matthew', 'Allen', '300000029', 'CM29', '2006-05-01', 'Boy', 'matthew.allen@club.com', '514-929-0001', '170 Youth St', 'Montreal', 'QC', 'H4H 2L2'),
-('Avery', 'King', '300000030', 'CM30', '2006-06-01', 'Girl', 'avery.king@club.com', '514-930-0001', '180 Youth St', 'Montreal', 'QC', 'H4H 2L3'),
-('Joseph', 'Wright', '300000031', 'CM31', '2007-01-01', 'Boy', 'joseph.wright@club.com', '514-931-0001', '190 Youth St', 'Montreal', 'QC', 'H4H 2L4'),
-('Ella', 'Scott', '300000032', 'CM32', '2007-02-01', 'Girl', 'ella.scott@club.com', '514-932-0001', '200 Youth St', 'Montreal', 'QC', 'H4H 2L5'),
-('Samuel', 'Torres', '300000033', 'CM33', '2007-03-01', 'Boy', 'samuel.torres@club.com', '514-933-0001', '210 Youth St', 'Montreal', 'QC', 'H4H 2L6'),
-('Scarlett', 'Nguyen', '300000034', 'CM34', '2007-04-01', 'Girl', 'scarlett.nguyen@club.com', '514-934-0001', '220 Youth St', 'Montreal', 'QC', 'H4H 2L7'),
-('David', 'Hill', '300000035', 'CM35', '2007-05-01', 'Boy', 'david.hill@club.com', '514-935-0001', '230 Youth St', 'Montreal', 'QC', 'H4H 2L8'),
-('Grace', 'Flores', '300000036', 'CM36', '2007-06-01', 'Girl', 'grace.flores@club.com', '514-936-0001', '240 Youth St', 'Montreal', 'QC', 'H4H 2L9'),
-('Carter', 'Green', '300000037', 'CM37', '2008-01-01', 'Boy', 'carter.green@club.com', '514-937-0001', '250 Youth St', 'Montreal', 'QC', 'H4H 3M1'),
-('Chloe', 'Adams', '300000038', 'CM38', '2008-02-01', 'Girl', 'chloe.adams@club.com', '514-938-0001', '260 Youth St', 'Montreal', 'QC', 'H4H 3M2'),
-('Wyatt', 'Nelson', '300000039', 'CM39', '2008-03-01', 'Boy', 'wyatt.nelson@club.com', '514-939-0001', '270 Youth St', 'Montreal', 'QC', 'H4H 3M3'),
-('Victoria', 'Baker', '300000040', 'CM40', '2008-04-01', 'Girl', 'victoria.baker@club.com', '514-940-0001', '280 Youth St', 'Montreal', 'QC', 'H4H 3M4'),
-('Jayden', 'Hall', '300000041', 'CM41', '2008-05-01', 'Boy', 'jayden.hall@club.com', '514-941-0001', '290 Youth St', 'Montreal', 'QC', 'H4H 3M5'),
-('Madison', 'Rivera', '300000042', 'CM42', '2008-06-01', 'Girl', 'madison.rivera@club.com', '514-942-0001', '300 Youth St', 'Montreal', 'QC', 'H4H 3M6');
+-- 8. ClubMembers (At least 50 real names)
+INSERT INTO ClubMember (first_name, last_name, ssn, medicare_number, date_of_birth, address, city, province, postal_code, phone_number, email, height_cm, weight_kg, gender) VALUES
+('Marcus', 'Rashford', '300000001', 'CM01', '2012-10-31', '101 ManUtd Way', 'Montreal', 'QC', 'H1H1B1', '514-300-0001', 'm.rashford@cm.com', 150, 45, 'Boy'),
+('Bukayo', 'Saka', '300000002', 'CM02', '2012-09-05', '102 Arsenal Dr', 'Montreal', 'QC', 'H1H1B2', '514-300-0002', 'b.saka@cm.com', 150, 45, 'Boy'),
+('Phil', 'Foden', '300000003', 'CM03', '2012-05-28', '103 City Pl', 'Montreal', 'QC', 'H1H1B3', '514-300-0003', 'p.foden@cm.com', 150, 45, 'Boy'),
+('Jude', 'Bellingham', '300000004', 'CM04', '2012-06-29', '104 Madrid St', 'Montreal', 'QC', 'H1H1B4', '514-300-0004', 'j.bellingham@cm.com', 150, 45, 'Boy'),
+('Declan', 'Rice', '300000005', 'CM05', '2012-01-14', '105 Hammer Rd', 'Montreal', 'QC', 'H1H1B5', '514-300-0005', 'd.rice@cm.com', 150, 45, 'Boy'),
+('Mason', 'Mount', '300000006', 'CM06', '2012-01-10', '106 Chelsea Blvd', 'Montreal', 'QC', 'H1H1B6', '514-300-0006', 'm.mount@cm.com', 150, 45, 'Boy'),
+('Jack', 'Grealish', '300000007', 'CM07', '2012-09-10', '107 Villa Ave', 'Montreal', 'QC', 'H1H1B7', '514-300-0007', 'j.grealish@cm.com', 150, 45, 'Boy'),
+('Trent', 'Alexander', '300000008', 'CM08', '2012-10-07', '108 Scouse Ln', 'Montreal', 'QC', 'H1H1B8', '514-300-0008', 't.alexander@cm.com', 150, 45, 'Boy'),
+('Reece', 'James', '300000009', 'CM09', '2012-12-08', '109 Bridge St', 'Montreal', 'QC', 'H1H1B9', '514-300-0009', 'r.james@cm.com', 150, 45, 'Boy'),
+('John', 'Stones', '300000010', 'CM10', '2012-05-28', '110 Etihad Way', 'Montreal', 'QC', 'H1H1C1', '514-300-0010', 'j.stones@cm.com', 150, 45, 'Boy'),
+('Kyle', 'Walker', '300000011', 'CM11', '2012-05-28', '111 Pace Dr', 'Montreal', 'QC', 'H1H1C2', '514-300-0011', 'k.walker@cm.com', 150, 45, 'Boy'),
+('Jordan', 'Pickford', '300000012', 'CM12', '2012-03-07', '112 Toffee Pl', 'Montreal', 'QC', 'H1H1C3', '514-300-0012', 'j.pickford@cm.com', 150, 45, 'Boy'),
+('Alex', 'Morgan', '300000013', 'CM13', '2012-07-02', '113 Wave Blvd', 'Montreal', 'QC', 'H1H1C4', '514-300-0013', 'a.morgan@cm.com', 150, 45, 'Girl'),
+('Megan', 'Rapinoe', '300000014', 'CM14', '2012-07-05', '114 Reign Ave', 'Montreal', 'QC', 'H1H1C5', '514-300-0014', 'm.rapinoe@cm.com', 150, 45, 'Girl'),
+('Rose', 'Lavelle', '300000015', 'CM15', '2012-05-14', '115 Spirit St', 'Montreal', 'QC', 'H1H1C6', '514-300-0015', 'r.lavelle@cm.com', 150, 45, 'Girl'),
+('Julie', 'Ertz', '300000016', 'CM16', '2012-04-06', '116 RedStar Ln', 'Montreal', 'QC', 'H1H1C7', '514-300-0016', 'j.ertz@cm.com', 150, 45, 'Girl'),
+('Crystal', 'Dunn', '300000017', 'CM17', '2012-07-03', '117 Thorns Dr', 'Montreal', 'QC', 'H1H1C8', '514-300-0017', 'c.dunn@cm.com', 150, 45, 'Girl'),
+('Kelley', 'OHara', '300000018', 'CM18', '2012-08-04', '118 Gotham Pl', 'Montreal', 'QC', 'H1H1C9', '514-300-0018', 'k.ohara@cm.com', 150, 45, 'Girl'),
+('Lindsey', 'Horan', '300000019', 'CM19', '2012-05-26', '119 Lyon Ave', 'Montreal', 'QC', 'H1H1D1', '514-300-0019', 'l.horan@cm.com', 150, 45, 'Girl'),
+('Sam', 'Mewis', '300000020', 'CM20', '2012-10-09', '120 Tower St', 'Montreal', 'QC', 'H1H1D2', '514-300-0020', 's.mewis@cm.com', 150, 45, 'Girl'),
+('Tobin', 'Heath', '300000021', 'CM21', '2012-05-29', '121 Skill Blvd', 'Montreal', 'QC', 'H1H1D3', '514-300-0021', 't.heath@cm.com', 150, 45, 'Girl'),
+('Christen', 'Press', '300000022', 'CM22', '2012-12-29', '122 AngelCity Ln', 'Montreal', 'QC', 'H1H1D4', '514-300-0022', 'c.press@cm.com', 150, 45, 'Girl'),
+('Alyssa', 'Naeher', '300000023', 'CM23', '2012-04-20', '123 Chicago Dr', 'Montreal', 'QC', 'H1H1D5', '514-300-0023', 'a.naeher@cm.com', 150, 45, 'Girl'),
+('Becky', 'Sauerbrunn', '300000024', 'CM24', '2012-06-06', '124 Defend Pl', 'Montreal', 'QC', 'H1H1D6', '514-300-0024', 'b.sauerbrunn@cm.com', 150, 45, 'Girl'),
+('Kylian', 'Mbappe', '300000025', 'CM25', '2012-12-20', '125 Paris Ave', 'Montreal', 'QC', 'H1H1D7', '514-300-0025', 'k.mbappe@cm.com', 150, 45, 'Boy'),
+('Erling', 'Haaland', '300000026', 'CM26', '2012-07-21', '126 Nordic St', 'Montreal', 'QC', 'H1H1D8', '514-300-0026', 'e.haaland@cm.com', 150, 45, 'Boy'),
+('Christine', 'Sinclair', '300000027', 'CM27', '1999-06-12', '127 Burnaby Blvd', 'Montreal', 'QC', 'H1H1D9', '514-300-0027', 'c.sinclair@cm.com', 170, 65, 'Girl'),
+('Marta', 'Vieira', '300000028', 'CM28', '1999-02-19', '128 Brasilia Ln', 'Montreal', 'QC', 'H1H1E1', '514-300-0028', 'm.vieira@cm.com', 170, 65, 'Girl'),
+('Wayne', 'Rooney', '300000029', 'CM29', '1999-10-24', '129 Everton Dr', 'Montreal', 'QC', 'H1H1E2', '514-300-0029', 'w.rooney@cm.com', 170, 75, 'Boy'),
+('Lionel', 'Messi', '300000030', 'CM30', '2012-06-24', '130 Rosario Ave', 'Montreal', 'QC', 'H1H1E3', '514-300-0030', 'l.messi@cm.com', 150, 45, 'Boy'),
+('Cristiano', 'Ronaldo', '300000031', 'CM31', '2012-02-05', '131 Madeira St', 'Montreal', 'QC', 'H1H1E4', '514-300-0031', 'c.ronaldo@cm.com', 150, 45, 'Boy'),
+('Neymar', 'Junior', '300000032', 'CM32', '2012-02-05', '132 Santos Blvd', 'Montreal', 'QC', 'H1H1E5', '514-300-0032', 'n.junior@cm.com', 150, 45, 'Boy'),
+('Kevin', 'DeBruyne', '300000033', 'CM33', '2012-06-28', '133 Ghent Ln', 'Montreal', 'QC', 'H1H1E6', '514-300-0033', 'k.debruyne@cm.com', 150, 45, 'Boy'),
+('Luka', 'Modric', '300000034', 'CM34', '2012-09-09', '134 Zadar Pl', 'Montreal', 'QC', 'H1H1E7', '514-300-0034', 'l.modric@cm.com', 150, 45, 'Boy'),
+('Robert', 'Lewandowski', '300000035', 'CM35', '2012-08-21', '135 Warsaw Dr', 'Montreal', 'QC', 'H1H1E8', '514-300-0035', 'r.lewandowski@cm.com', 150, 45, 'Boy'),
+('Harry', 'Kane', '300000036', 'CM36', '2012-07-28', '136 London Ave', 'Montreal', 'QC', 'H1H1E9', '514-300-0036', 'h.kane@cm.com', 150, 45, 'Boy'),
+('Sophia', 'Smith', '300000037', 'CM37', '2012-08-10', '137 Portland St', 'Montreal', 'QC', 'H1H1F1', '514-300-0037', 's.smith@cm.com', 150, 45, 'Girl'),
+('Trinity', 'Rodman', '300000038', 'CM38', '2012-05-20', '138 Spirit Blvd', 'Montreal', 'QC', 'H1H1F2', '514-300-0038', 't.rodman@cm.com', 150, 45, 'Girl'),
+('Mallory', 'Swanson', '300000039', 'CM39', '2012-04-29', '139 Chicago Ln', 'Montreal', 'QC', 'H1H1F3', '514-300-0039', 'm.swanson@cm.com', 150, 45, 'Girl'),
+('Naomi', 'Girma', '300000040', 'CM40', '2012-06-14', '140 Wave Pl', 'Montreal', 'QC', 'H1H1F4', '514-300-0040', 'n.girma@cm.com', 150, 45, 'Girl'),
+('Virgil', 'VanDijk', '300000041', 'CM41', '2012-07-08', '141 Breda Dr', 'Montreal', 'QC', 'H1H1F5', '514-300-0041', 'v.vandijk@cm.com', 150, 45, 'Boy'),
+('Alisson', 'Becker', '300000042', 'CM42', '2012-10-02', '142 Novo Ave', 'Montreal', 'QC', 'H1H1F6', '514-300-0042', 'a.becker@cm.com', 150, 45, 'Boy'),
+('Mo', 'Salah', '300000043', 'CM43', '2012-06-15', '143 Cairo St', 'Montreal', 'QC', 'H1H1F7', '514-300-0043', 'm.salah@cm.com', 150, 45, 'Boy'),
+('Sadio', 'Mane', '300000044', 'CM44', '2012-04-10', '144 Dakar Blvd', 'Montreal', 'QC', 'H1H1F8', '514-300-0044', 's.mane@cm.com', 150, 45, 'Boy'),
+('Roberto', 'Firmino', '300000045', 'CM45', '2012-10-02', '145 Maceio Ln', 'Montreal', 'QC', 'H1H1F9', '514-300-0045', 'r.firmino@cm.com', 150, 45, 'Boy'),
+('Thiago', 'Alcantara', '300000046', 'CM46', '2012-04-11', '146 Barca Pl', 'Montreal', 'QC', 'H1H1G1', '514-300-0046', 't.alcantara@cm.com', 150, 45, 'Boy'),
+('Diogo', 'Jota', '300000047', 'CM47', '2012-12-04', '147 Porto Dr', 'Montreal', 'QC', 'H1H1G2', '514-300-0047', 'd.jota@cm.com', 150, 45, 'Boy'),
+('Luis', 'Diaz', '300000048', 'CM48', '2012-01-13', '148 Barrancas Ave', 'Montreal', 'QC', 'H1H1G3', '514-300-0048', 'l.diaz@cm.com', 150, 45, 'Boy'),
+('Cody', 'Gakpo', '300000049', 'CM49', '2012-05-07', '149 PSV St', 'Montreal', 'QC', 'H1H1G4', '514-300-0049', 'c.gakpo@cm.com', 150, 45, 'Boy'),
+('Darwin', 'Nunez', '300000050', 'CM50', '2012-06-24', '150 Artigas Blvd', 'Montreal', 'QC', 'H1H1G5', '514-300-0050', 'd.nunez@cm.com', 150, 45, 'Boy');
 
--- 5. Subtype Tables (Minor / Major)
-INSERT INTO Minor (membership_number) VALUES 
-(1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12),
-(19),(20),(21),(22),(23),(24),(25),(26),(27),(28),(29),(30),
-(31),(32),(33),(34),(35),(36),(37),(38),(39),(40),(41),(42);
+-- 9. Major and Minor
+-- INSERT INTO Minor (membership_number) VALUES 
+-- (1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12),(13),(14),(15),(16),(17),(18),(19),(20),(21),(22),(23),(24),(25),(26),(30),(31),(32),(33),(34),(35),(36),(37),(38),(39),(40),(41),(42),(43),(44),(45),(46),(47),(48),(49),(50);
 
-INSERT INTO Major (membership_number) VALUES 
-(13),(14),(15),(16),(17),(18);
+-- INSERT INTO Major (membership_number) VALUES (27), (28), (29);
 
--- 6. RelatedTo
+-- 10. MemberLocation (Using NULL for active end_date)
+INSERT INTO MemberLocation (membership_number, location_id, start_date, end_date) VALUES 
+(1, 1, '2024-01-01', NULL), (2, 1, '2024-01-01', NULL),
+(3, 1, '2024-01-01', NULL), (4, 1, '2024-01-01', NULL),
+(5, 1, '2024-01-01', NULL), (6, 1, '2024-01-01', NULL),
+(7, 1, '2024-01-01', NULL), (8, 1, '2024-01-01', NULL),
+(9, 1, '2024-01-01', NULL), (10, 1, '2024-01-01', NULL),
+(11, 1, '2024-01-01', NULL), (12, 1, '2024-01-01', NULL),
+(13, 2, '2024-01-01', NULL), (14, 2, '2024-01-01', NULL),
+(15, 2, '2024-01-01', NULL), (16, 2, '2024-01-01', NULL),
+(17, 2, '2024-01-01', NULL), (18, 2, '2024-01-01', NULL),
+(19, 2, '2024-01-01', NULL), (20, 2, '2024-01-01', NULL),
+(21, 2, '2024-01-01', NULL), (22, 2, '2024-01-01', NULL),
+(23, 2, '2024-01-01', NULL), (24, 2, '2024-01-01', NULL),
+(25, 1, '2024-01-01', NULL), (26, 1, '2024-01-01', NULL),
+(27, 1, '2010-01-01', NULL), (28, 1, '2024-01-01', NULL),
+(29, 1, '2024-01-01', NULL), (30, 1, '2024-01-01', NULL),
+(31, 1, '2024-01-01', NULL), (32, 2, '2024-01-01', NULL),
+(33, 2, '2024-01-01', NULL), (34, 3, '2024-01-01', NULL),
+(35, 3, '2024-01-01', NULL), (36, 1, '2024-01-01', NULL),
+(37, 3, '2024-01-01', NULL), (38, 3, '2024-01-01', NULL), 
+(39, 4, '2024-01-01', NULL), (40, 4, '2024-01-01', NULL), 
+(41, 4, '2024-01-01', NULL), (42, 5, '2024-01-01', NULL),
+(43, 5, '2024-01-01', NULL), (44, 5, '2024-01-01', NULL), 
+(45, 6, '2024-01-01', NULL), (46, 6, '2024-01-01', NULL), 
+(47, 6, '2024-01-01', NULL), (48, 7, '2024-01-01', NULL),
+(49, 7, '2024-01-01', NULL), (50, 7, '2024-01-01', NULL);
+
+-- 11. RelatedTo
 INSERT INTO RelatedTo (family_member_id, membership_number, relationship_type) VALUES
-(1, 1, 'Mother'), (1, 2, 'Mother'),
-(2, 3, 'Father'), (2, 4, 'Father'),
-(3, 5, 'Mother'), (3, 6, 'Mother'),
-(4, 7, 'Father'), (4, 8, 'Father'),
-(5, 9, 'Mother'), (5, 10, 'Mother'),
-(6, 11, 'Father'), (6, 12, 'Father');
+(1, 30, 'Father'), (1, 31, 'Father'), 
+(2, 32, 'Mother'), (2, 33, 'Mother'), 
+(3, 34, 'Father'), (3, 35, 'Father'), 
+(4, 1, 'Mother'),  (5, 2, 'Father');
 
--- 7. Payment for Major history
-INSERT INTO Payment (membership_number, payment_date, amount, payment_method, payment_year_target, installment_number) VALUES
-(13, '2010-01-01', 100, 'Cash', 2010, 1),
-(14, '2010-01-01', 100, 'Cash', 2010, 1),
-(15, '2010-01-01', 100, 'Cash', 2010, 1),
-(16, '2010-01-01', 100, 'Cash', 2010, 1),
-(17, '2010-01-01', 100, 'Cash', 2010, 1),
-(18, '2010-01-01', 100, 'Cash', 2010, 1);
-
--- 8. Teams and PlaysAt
+-- 12. Teams and PlaysAt
 INSERT INTO Team (name, gender_category) VALUES
-('Montreal Meteors', 'Boy'), ('Laval Lightning', 'Boy'),
-('Westmount Phoenix', 'Girl'), ('Brossard Blazers', 'Girl'),
-('Dorval Defenders', 'Boy'), ('Kirkland Kickers', 'Boy'),
-('Pointe-Claire Pumas', 'Girl'), ('Verdun Vipers', 'Girl'),
-('Lasalle Lions', 'Boy'), ('Outremont Owls', 'Boy'),
-('Lachine Leopards', 'Girl'), ('Anjou Arrows', 'Girl');
+('Red Devils', 'Boy'), ('Gunners', 'Boy'),
+('Thorns', 'Girl'), ('Spirit', 'Girl');
 
 INSERT INTO PlaysAt (team_id, location_id) VALUES
-(1, 1), (2, 1), (3, 2), (4, 2), (5, 3), (6, 3),
-(7, 4), (8, 4), (9, 5), (10, 5), (11, 6), (12, 6);
+(1, 1), (2, 1), (3, 2), (4, 2);
 
--- 9. Team Sessions
+-- 13. Team Sessions
 INSERT INTO TeamSession (session_type, date, start_time, address) VALUES
-('Game', '2026-02-01', '10:00:00', '100 Main St'), ('Game', '2026-02-08', '10:00:00', '100 Main St'),
-('Game', '2026-02-15', '10:00:00', '100 Main St'), ('Game', '2026-02-22', '10:00:00', '100 Main St'), ('Game', '2026-03-01', '10:00:00', '100 Main St'),
-('Game', '2026-02-01', '11:00:00', '200 North St'), ('Game', '2026-02-08', '11:00:00', '200 North St'),
-('Game', '2026-02-15', '11:00:00', '200 North St'), ('Game', '2026-02-22', '11:00:00', '200 North St'), ('Game', '2026-03-01', '11:00:00', '200 North St'),
-('Game', '2026-02-01', '12:00:00', '300 South St'), ('Game', '2026-02-08', '12:00:00', '300 South St'),
-('Game', '2026-02-15', '12:00:00', '300 South St'), ('Game', '2026-02-22', '12:00:00', '300 South St'), ('Game', '2026-03-01', '12:00:00', '300 South St'),
-('Game', '2026-02-01', '13:00:00', '400 East St'), ('Game', '2026-02-08', '13:00:00', '400 East St'),
-('Game', '2026-02-15', '13:00:00', '400 East St'), ('Game', '2026-02-22', '13:00:00', '400 East St'), ('Game', '2026-03-01', '13:00:00', '400 East St'),
-('Game', '2026-02-01', '14:00:00', '500 West St'), ('Game', '2026-02-08', '14:00:00', '500 West St'),
-('Game', '2026-02-15', '14:00:00', '500 West St'), ('Game', '2026-02-22', '14:00:00', '500 West St'), ('Game', '2026-03-01', '14:00:00', '500 West St'),
-('Game', '2026-02-01', '15:00:00', '600 Center St'), ('Game', '2026-02-08', '15:00:00', '600 Center St'),
-('Game', '2026-02-15', '15:00:00', '600 Center St'), ('Game', '2026-02-22', '15:00:00', '600 Center St'), ('Game', '2026-03-01', '15:00:00', '600 Center St');
+('Game', '2025-02-01', '10:00:00', '4141 Pierre-de Coubertin Ave'), 
+('Game', '2025-02-08', '10:00:00', '4141 Pierre-de Coubertin Ave'), 
+('Game', '2025-02-15', '10:00:00', '4141 Pierre-de Coubertin Ave'), 
+('Game', '2025-02-22', '10:00:00', '4141 Pierre-de Coubertin Ave'), 
+('Game', '2025-03-01', '10:00:00', '4141 Pierre-de Coubertin Ave'), 
+('Game', '2025-02-01', '14:00:00', '4750 Sherbrooke St E'), 
+('Game', '2025-02-08', '14:00:00', '4750 Sherbrooke St E'), 
+('Game', '2025-02-15', '14:00:00', '4750 Sherbrooke St E'), 
+('Game', '2025-02-22', '14:00:00', '4750 Sherbrooke St E'); 
 
--- 10. Team Formation
+-- 14. Team Formation
 INSERT INTO TeamFormation (team_id, session_id, coach_id, score) VALUES
-(1, 1, 7, 3), (2, 1, 7, 0), (1, 2, 7, 3), (2, 2, 7, 0), (1, 3, 7, 3), (2, 3, 7, 0), (1, 4, 7, 3), (2, 4, 7, 0), (1, 5, 7, 3), (2, 5, 7, 0),
-(3, 6, 8, 3), (4, 6, 8, 0), (3, 7, 8, 3), (4, 7, 8, 0), (3, 8, 8, 3), (4, 8, 8, 0), (3, 9, 8, 3), (4, 9, 8, 0), (3, 10, 8, 3), (4, 10, 8, 0),
-(5, 11, 9, 3), (6, 11, 9, 0), (5, 12, 9, 3), (6, 12, 9, 0), (5, 13, 9, 3), (6, 13, 9, 0), (5, 14, 9, 3), (6, 14, 9, 0), (5, 15, 9, 3), (6, 15, 9, 0),
-(7, 16, 10, 3), (8, 16, 10, 0), (7, 17, 10, 3), (8, 17, 10, 0), (7, 18, 10, 3), (8, 18, 10, 0), (7, 19, 10, 3), (8, 19, 10, 0), (7, 20, 10, 3), (8, 20, 10, 0),
-(9, 21, 11, 3), (10, 21, 11, 0), (9, 22, 11, 3), (10, 22, 11, 0), (9, 23, 11, 3), (10, 23, 11, 0), (9, 24, 11, 3), (10, 24, 11, 0), (9, 25, 11, 3), (10, 25, 11, 0),
-(11, 26, 12, 3), (12, 26, 12, 0), (11, 27, 12, 3), (12, 27, 12, 0), (11, 28, 12, 3), (12, 28, 12, 0), (11, 29, 12, 3), (12, 29, 12, 0), (11, 30, 12, 3), (12, 30, 12, 0);
+(1, 1, 17, 3), (2, 1, 8,  0),
+(1, 2, 17, 2), (2, 2, 8,  1), 
+(1, 3, 17, 1), (2, 3, 8,  0),
+(1, 4, 17, 4), (2, 4, 8,  2),
+(1, 5, 17, 2), (2, 5, 8,  0),
+(3, 6, 18, 2), (4, 6, 9,  1),
+(3, 7, 18, 3), (4, 7, 9,  1),
+(3, 8, 18, 1), (4, 8, 9,  0),
+(3, 9, 18, 2), (4, 9, 9,  1);
 
--- 11. TeamPlayer
+-- 15. Team Player
 INSERT INTO TeamPlayer (team_id, session_id, membership_number, position) VALUES
-(1, 1, 25, 'Goalkeeper'), (1, 2, 25, 'Goalkeeper'), (3, 6, 26, 'Goalkeeper'), (3, 7, 26, 'Goalkeeper'),
-(5, 11, 27, 'Goalkeeper'), (5, 12, 27, 'Goalkeeper'), (7, 16, 28, 'Goalkeeper'), (7, 17, 28, 'Goalkeeper'),
-(9, 21, 29, 'Goalkeeper'), (9, 22, 29, 'Goalkeeper'), (11, 26, 30, 'Goalkeeper'), (11, 27, 30, 'Goalkeeper'),
-(1, 1, 31, 'Goalkeeper'), (1, 2, 31, 'Right Fullback'), (1, 3, 31, 'Sweeper'), (1, 4, 31, 'Center Back'), (1, 5, 31, 'Striker'),
-(3, 6, 32, 'Goalkeeper'), (3, 7, 32, 'Right Fullback'), (3, 8, 32, 'Sweeper'), (3, 9, 32, 'Center Back'), (3, 10, 32, 'Striker'),
-(5, 11, 33, 'Goalkeeper'), (5, 12, 33, 'Right Fullback'), (5, 13, 33, 'Sweeper'), (5, 14, 33, 'Center Back'), (5, 15, 33, 'Striker'),
-(7, 16, 34, 'Goalkeeper'), (7, 17, 34, 'Right Fullback'), (7, 18, 34, 'Sweeper'), (7, 19, 34, 'Center Back'), (7, 20, 34, 'Striker'),
-(9, 21, 35, 'Goalkeeper'), (9, 22, 35, 'Right Fullback'), (9, 23, 35, 'Sweeper'), (9, 24, 35, 'Center Back'), (9, 25, 35, 'Striker'),
-(11, 26, 36, 'Goalkeeper'), (11, 27, 36, 'Right Fullback'), (11, 28, 36, 'Sweeper'), (11, 29, 36, 'Center Back'), (11, 30, 36, 'Striker'),
-(2, 1, 37, 'Striker'), (2, 2, 37, 'Striker'), (4, 6, 38, 'Striker'), (4, 7, 38, 'Striker'),
-(6, 11, 39, 'Striker'), (6, 12, 39, 'Striker'), (8, 16, 40, 'Striker'), (8, 17, 40, 'Striker'),
-(10, 21, 41, 'Striker'), (10, 22, 41, 'Striker'), (12, 26, 42, 'Striker'), (12, 27, 42, 'Striker');
+(1,1,1,'Goalkeeper'), (1,1,2,'Right Fullback'), (1,1,3,'Center Back'), (1,1,4,'Sweeper'), (1,1,5,'Striker'), (1,1,6,'Left Winger'),
+(2,1,7,'Goalkeeper'), (2,1,8,'Right Fullback'), (2,1,9,'Center Back'), (2,1,10,'Sweeper'),(2,1,11,'Striker'),(2,1,12,'Left Winger'),
+(1,2,1,'Goalkeeper'), (1,2,2,'Right Fullback'), (1,2,3,'Center Back'), (1,2,4,'Sweeper'), (1,2,5,'Striker'), (1,2,6,'Left Winger'),
+(2,2,7,'Goalkeeper'), (2,2,8,'Right Fullback'), (2,2,9,'Center Back'), (2,2,10,'Sweeper'),(2,2,11,'Striker'),(2,2,36,'Left Winger'), 
+(1,3,1,'Goalkeeper'), (1,3,2,'Right Fullback'), (1,3,3,'Center Back'), (1,3,4,'Sweeper'), (1,3,5,'Striker'), (1,3,6,'Left Winger'),
+(2,3,7,'Goalkeeper'), (2,3,8,'Right Fullback'), (2,3,9,'Center Back'), (2,3,10,'Sweeper'),(2,3,11,'Striker'),(2,3,36,'Left Winger'), 
+(1,4,1,'Goalkeeper'), (1,4,2,'Right Fullback'), (1,4,3,'Center Back'), (1,4,4,'Sweeper'), (1,4,5,'Striker'), (1,4,6,'Left Winger'),
+(2,4,7,'Goalkeeper'), (2,4,8,'Right Fullback'), (2,4,9,'Center Back'), (2,4,10,'Sweeper'),(2,4,11,'Striker'),(2,4,36,'Left Winger'),
+(1,5,1,'Goalkeeper'), (1,5,2,'Right Fullback'), (1,5,3,'Center Back'), (1,5,4,'Sweeper'), (1,5,5,'Striker'), (1,5,6,'Left Winger'),
+(2,5,7,'Goalkeeper'), (2,5,8,'Right Fullback'), (2,5,9,'Center Back'), (2,5,10,'Sweeper'),(2,5,11,'Striker'),(2,5,36,'Left Winger'),
+(3,6,28,'Goalkeeper'), (3,6,14,'Right Fullback'),(3,6,15,'Center Back'),(3,6,16,'Sweeper'),(3,6,17,'Striker'),(3,6,18,'Left Winger'), 
+(4,6,19,'Goalkeeper'), (4,6,20,'Right Fullback'),(4,6,21,'Center Back'),(4,6,22,'Sweeper'),(4,6,23,'Striker'),(4,6,24,'Left Winger'),
+(3,7,28,'Goalkeeper'), (3,7,14,'Right Fullback'),(3,7,15,'Center Back'),(3,7,16,'Sweeper'),(3,7,17,'Striker'),(3,7,18,'Left Winger'),
+(4,7,19,'Goalkeeper'), (4,7,20,'Right Fullback'),(4,7,21,'Center Back'),(4,7,22,'Sweeper'),(4,7,23,'Striker'),(4,7,24,'Left Winger'),
+(3,8,28,'Goalkeeper'), (3,8,14,'Right Fullback'),(3,8,15,'Center Back'),(3,8,16,'Sweeper'),(3,8,17,'Striker'),(3,8,18,'Left Winger'),
+(4,8,19,'Goalkeeper'), (4,8,20,'Right Fullback'),(4,8,21,'Center Back'),(4,8,22,'Sweeper'),(4,8,23,'Striker'),(4,8,24,'Left Winger'),
+(3,9,28,'Goalkeeper'), (3,9,14,'Right Fullback'),(3,9,15,'Center Back'),(3,9,16,'Sweeper'),(3,9,17,'Striker'),(3,9,18,'Left Winger'),
+(4,9,19,'Goalkeeper'), (4,9,20,'Right Fullback'),(4,9,21,'Center Back'),(4,9,22,'Sweeper'),(4,9,23,'Striker'),(4,9,24,'Left Winger');
 
--- 12. FifaGame & ParticipatedIn
+-- Cycle CM29 to satisfy Q16
+UPDATE TeamPlayer SET membership_number = 29 WHERE team_id=1 AND session_id=1 AND position='Goalkeeper';
+UPDATE TeamPlayer SET membership_number = 29 WHERE team_id=1 AND session_id=2 AND position='Right Fullback';
+UPDATE TeamPlayer SET membership_number = 29 WHERE team_id=1 AND session_id=3 AND position='Sweeper';
+UPDATE TeamPlayer SET membership_number = 29 WHERE team_id=1 AND session_id=4 AND position='Center Back';
+UPDATE TeamPlayer SET membership_number = 29 WHERE team_id=1 AND session_id=5 AND position='Striker';
+
+-- 16. FIFA Games & ParticipatedIn
 INSERT INTO FifaGame (date, location, score) VALUES
-('2025-01-01', 'Stadium A', '1-0'), ('2025-02-01', 'Stadium A', '2-1'),
-('2025-03-01', 'Stadium B', '0-0'), ('2025-04-01', 'Stadium B', '3-2'),
-('2025-05-01', 'Stadium C', '1-1'), ('2025-06-01', 'Stadium C', '4-0'),
-('2025-07-01', 'Stadium D', '0-2'), ('2025-08-01', 'Stadium D', '2-2'),
-('2025-09-01', 'Stadium E', '1-3'), ('2025-10-01', 'Stadium E', '5-1');
+('2023-01-01', 'Wembley Stadium', '1-0'), ('2023-02-01', 'Camp Nou', '2-0'),
+('2024-03-01', 'Anfield', '1-1'), ('2024-04-01', 'Old Trafford', '3-0'),
+('2025-05-01', 'Santiago Bernabeu', '0-0');
 
 INSERT INTO ParticipatedIn (membership_number, game_id, team_name, opponent) VALUES
-(1, 1, 'Real Madrid', 'FC Barcelona'), (1, 2, 'Manchester United', 'Liverpool'), (1, 3, 'Bayern Munich', 'Borussia Dortmund'), (1, 4, 'Paris Saint-Germain', 'Marseille'), (1, 5, 'Juventus', 'AC Milan'), (1, 6, 'Chelsea', 'Arsenal'),
-(2, 1, 'Real Madrid', 'FC Barcelona'), (2, 2, 'Manchester United', 'Liverpool'), (2, 3, 'Bayern Munich', 'Borussia Dortmund'), (2, 4, 'Paris Saint-Germain', 'Marseille'), (2, 5, 'Juventus', 'AC Milan'), (2, 6, 'Chelsea', 'Arsenal'),
-(3, 1, 'Real Madrid', 'FC Barcelona'), (3, 2, 'Manchester United', 'Liverpool'), (3, 3, 'Bayern Munich', 'Borussia Dortmund'), (3, 4, 'Paris Saint-Germain', 'Marseille'), (3, 5, 'Juventus', 'AC Milan'), (3, 6, 'Chelsea', 'Arsenal'),
-(4, 1, 'Real Madrid', 'FC Barcelona'), (4, 2, 'Manchester United', 'Liverpool'), (4, 3, 'Bayern Munich', 'Borussia Dortmund'), (4, 4, 'Paris Saint-Germain', 'Marseille'), (4, 5, 'Juventus', 'AC Milan'), (4, 6, 'Chelsea', 'Arsenal'),
-(5, 1, 'Real Madrid', 'FC Barcelona'), (5, 2, 'Manchester United', 'Liverpool'), (5, 3, 'Bayern Munich', 'Borussia Dortmund'), (5, 4, 'Paris Saint-Germain', 'Marseille'), (5, 5, 'Juventus', 'AC Milan'), (5, 6, 'Chelsea', 'Arsenal'),
-(6, 1, 'Real Madrid', 'FC Barcelona'), (6, 2, 'Manchester United', 'Liverpool'), (6, 3, 'Bayern Munich', 'Borussia Dortmund'), (6, 4, 'Paris Saint-Germain', 'Marseille'), (6, 5, 'Juventus', 'AC Milan'), (6, 6, 'Chelsea', 'Arsenal'),
-(7, 1, 'Real Madrid', 'FC Barcelona'), (7, 2, 'Manchester United', 'Liverpool'), (7, 3, 'Bayern Munich', 'Borussia Dortmund'), (7, 4, 'Paris Saint-Germain', 'Marseille'), (7, 5, 'Juventus', 'AC Milan'), (7, 6, 'Chelsea', 'Arsenal'),
-(8, 1, 'Real Madrid', 'FC Barcelona'), (8, 2, 'Manchester United', 'Liverpool'), (8, 3, 'Bayern Munich', 'Borussia Dortmund'), (8, 4, 'Paris Saint-Germain', 'Marseille'), (8, 5, 'Juventus', 'AC Milan'), (8, 6, 'Chelsea', 'Arsenal'),
-(9, 1, 'Real Madrid', 'FC Barcelona'), (9, 2, 'Manchester United', 'Liverpool'), (9, 3, 'Bayern Munich', 'Borussia Dortmund'), (9, 4, 'Paris Saint-Germain', 'Marseille'), (9, 5, 'Juventus', 'AC Milan'), (9, 6, 'Chelsea', 'Arsenal'),
-(10, 1, 'Real Madrid', 'FC Barcelona'), (10, 2, 'Manchester United', 'Liverpool'), (10, 3, 'Bayern Munich', 'Borussia Dortmund'), (10, 4, 'Paris Saint-Germain', 'Marseille'), (10, 5, 'Juventus', 'AC Milan'), (10, 6, 'Chelsea', 'Arsenal'),
-(11, 1, 'Real Madrid', 'FC Barcelona'), (11, 2, 'Manchester United', 'Liverpool'), (11, 3, 'Bayern Munich', 'Borussia Dortmund'), (11, 4, 'Paris Saint-Germain', 'Marseille'), (11, 5, 'Juventus', 'AC Milan'), (11, 6, 'Chelsea', 'Arsenal'),
-(12, 1, 'Real Madrid', 'FC Barcelona'), (12, 2, 'Manchester United', 'Liverpool'), (12, 3, 'Bayern Munich', 'Borussia Dortmund'), (12, 4, 'Paris Saint-Germain', 'Marseille'), (12, 5, 'Juventus', 'AC Milan'), (12, 6, 'Chelsea', 'Arsenal'),
-(19, 1, 'Real Madrid', 'FC Barcelona'), (19, 2, 'Manchester United', 'Liverpool'), (19, 3, 'Bayern Munich', 'Borussia Dortmund'), (19, 4, 'Paris Saint-Germain', 'Marseille'), (19, 5, 'Juventus', 'AC Milan'), (19, 6, 'Chelsea', 'Arsenal'),
-(20, 1, 'Real Madrid', 'FC Barcelona'), (20, 2, 'Manchester United', 'Liverpool'), (20, 3, 'Bayern Munich', 'Borussia Dortmund'), (20, 4, 'Paris Saint-Germain', 'Marseille'), (20, 5, 'Juventus', 'AC Milan'), (20, 6, 'Chelsea', 'Arsenal'),
-(21, 1, 'Real Madrid', 'FC Barcelona'), (21, 2, 'Manchester United', 'Liverpool'), (21, 3, 'Bayern Munich', 'Borussia Dortmund'), (21, 4, 'Paris Saint-Germain', 'Marseille'), (21, 5, 'Juventus', 'AC Milan'), (21, 6, 'Chelsea', 'Arsenal'),
-(22, 1, 'Real Madrid', 'FC Barcelona'), (22, 2, 'Manchester United', 'Liverpool'), (22, 3, 'Bayern Munich', 'Borussia Dortmund'), (22, 4, 'Paris Saint-Germain', 'Marseille'), (22, 5, 'Juventus', 'AC Milan'), (22, 6, 'Chelsea', 'Arsenal'),
-(23, 1, 'Real Madrid', 'FC Barcelona'), (23, 2, 'Manchester United', 'Liverpool'), (23, 3, 'Bayern Munich', 'Borussia Dortmund'), (23, 4, 'Paris Saint-Germain', 'Marseille'), (23, 5, 'Juventus', 'AC Milan'), (23, 6, 'Chelsea', 'Arsenal'),
-(24, 1, 'Real Madrid', 'FC Barcelona'), (24, 2, 'Manchester United', 'Liverpool'), (24, 3, 'Bayern Munich', 'Borussia Dortmund'), (24, 4, 'Paris Saint-Germain', 'Marseille'), (24, 5, 'Juventus', 'AC Milan'), (24, 6, 'Chelsea', 'Arsenal');
+(25, 1, 'Real Madrid', 'Barcelona'), (25, 2, 'Real Madrid', 'Barcelona'), (25, 3, 'Real Madrid', 'Barcelona'), (25, 4, 'Real Madrid', 'Barcelona'), (25, 5, 'Real Madrid', 'Barcelona'),
+(26, 1, 'Real Madrid', 'Barcelona'), 
+(30, 1, 'Real Madrid', 'Barcelona'), (31, 1, 'Real Madrid', 'Barcelona'), 
+(32, 2, 'Real Madrid', 'Barcelona'), (33, 2, 'Real Madrid', 'Barcelona'), 
+(34, 3, 'Real Madrid', 'Barcelona'), (35, 3, 'Real Madrid', 'Barcelona');
+
+-- 17. Fill out non-null Ancillary Tables
+INSERT INTO Hobby (hobby_name) VALUES ('Video Games'), ('Reading'), ('Cycling');
+INSERT INTO Likes (membership_number, hobby_id) VALUES (1, 1), (2, 2), (3, 3);
+INSERT INTO Payment (membership_number, payment_date, amount, payment_method, payment_year_target, installment_number) VALUES
+(1, '2026-01-01', 100.00, 'Cash', 2026, 1), (2, '2026-01-01', 100.00, 'Cash', 2026, 1);

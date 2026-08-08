@@ -81,6 +81,65 @@ CREATE TABLE Minor(
     FOREIGN KEY(membership_number) REFERENCES ClubMember(membership_number)
 );
 
+DELIMITER //
+
+CREATE TRIGGER trg_classify_member_age
+AFTER INSERT ON ClubMember
+FOR EACH ROW
+BEGIN
+    DECLARE member_age INT;
+    
+    -- Calculate age based on today's date
+    SET member_age = TIMESTAMPDIFF(YEAR, NEW.date_of_birth, CURDATE());
+    
+    -- Route to Minor or Major table
+    IF member_age BETWEEN 4 AND 17 THEN
+        INSERT INTO Minor (membership_number) 
+        VALUES (NEW.membership_number);
+    ELSEIF member_age >= 18 THEN
+        INSERT INTO Major (membership_number) 
+        VALUES (NEW.membership_number);
+    END IF;
+END//
+
+DELIMITER ;
+
+-- STEP 3: Configure and create the background event
+SET GLOBAL event_scheduler = ON;
+
+DELIMITER //
+
+CREATE EVENT ev_graduate_minors_to_majors
+ON SCHEDULE EVERY 1 DAY
+STARTS CURRENT_TIMESTAMP
+DO
+BEGIN
+    -- 1. Copy the 18+ year olds into the Major table
+    INSERT INTO Major (membership_number)
+    SELECT m.membership_number 
+    FROM Minor m
+    JOIN ClubMember c ON m.membership_number = c.membership_number
+    WHERE TIMESTAMPDIFF(YEAR, c.date_of_birth, CURDATE()) >= 18;
+
+    -- 2. Delete those same 18+ year olds from the Minor table
+    DELETE m FROM Minor m
+    JOIN ClubMember c ON m.membership_number = c.membership_number
+    WHERE TIMESTAMPDIFF(YEAR, c.date_of_birth, CURDATE()) >= 18;
+END//
+
+DELIMITER ;
+
+CREATE TABLE MemberLocation(
+	membership_number INT,
+    location_id INT,
+    start_date DATE,
+    end_date DATE,
+    PRIMARY KEY(membership_number,location_id,start_date),
+    FOREIGN KEY(membership_number) REFERENCES ClubMember(membership_number),
+    FOREIGN KEY(location_id) REFERENCES Location(location_id),
+    CHECK(end_date IS NULL OR end_date>=start_date)
+    );
+
 CREATE TABLE Team(
     team_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,

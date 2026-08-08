@@ -17,15 +17,20 @@ class Team extends Controller
 
     public function index()
     {
-        $teams = $this->team_model->get_teams();
         $team_formations = $this->team_model->get_team_formations();
-        $team_players = $this->team_model->get_team_players();
+
+        foreach ($team_formations as $formation) {
+            $formation->players = $this->team_model->get_team_players(
+                $formation->team_id,
+                $formation->session_id
+            );
+        }
+
         $data = [
-            "teams" => $teams,
-            "team_formations" => $team_formations,
-            "team_players" => $team_players
+            'team_formations' => $team_formations
         ];
-        $this->view('Team/get_team_formations',$data);
+
+        $this->view('Team/get_team_formations', $data);
     }
 
 }

@@ -12,10 +12,13 @@ class team_model extends Model{
     }
 
     public function get_team_formations(){
-        $this->query("SELECT Team.team_id, Team.name, Team.gender_category, Personnel.first_name AS coach_first_name, Personnel.last_name AS coach_last_name
+        $this->query("SELECT Team.team_id, TeamFormation.session_id, Team.name, Team.gender_category, Personnel.first_name AS coach_first_name, Personnel.last_name AS coach_last_name, 
+                        COALESCE(CAST(TeamFormation.score AS VARCHAR(10)), 'TBA') AS score, TeamSession.date, TeamSession.start_time
                         FROM TeamFormation
                         JOIN Team ON TeamFormation.team_id = Team.team_id
-                        JOIN Personnel ON TeamFormation.coach_id = Personnel.personnel_id");
+                        JOIN Personnel ON TeamFormation.coach_id = Personnel.personnel_id
+                        JOIN TeamSession ON TeamFormation.session_id = TeamSession.session_id
+                        ORDER BY TeamFormation.session_id DESC");
         return $this->getResultSet();
     }
 
@@ -23,7 +26,8 @@ class team_model extends Model{
         $this->query("SELECT ClubMember.first_name, ClubMember.last_name, TeamPlayer.position
                         FROM TeamPlayer
                         JOIN ClubMember ON TeamPlayer.membership_number = ClubMember.membership_number
-                        WHERE TeamPlayer.team_id = :team_id AND TeamPlayer.session_id = :session_id");
+                        WHERE TeamPlayer.team_id = :team_id AND TeamPlayer.session_id = :session_id
+                        ");
         $this->bind(":team_id",$team_id);
         $this->bind(":session_id",$session_id);
         return $this->getResultSet();
@@ -33,6 +37,15 @@ class team_model extends Model{
         $this->query("SELECT * FROM Team WHERE team_id = :team_id");
         $this->bind(":team_id",$team_id);
         return $this->getSingle();
+    }
+
+    public function get_team_by_gender_and_location($gender_category, $location_id){
+        $this->query("SELECT * FROM Team 
+                    WHERE gender_category = :gender_category AND team_id IN (SELECT team_id FROM PlaysAt WHERE location_id = :location_id)");
+        $this->bind(":gender_category",$gender_category);
+        $this->bind(":location_id",$location_id);
+
+        return $this->getResultSet();
     }
 
     public function add_team($team){
