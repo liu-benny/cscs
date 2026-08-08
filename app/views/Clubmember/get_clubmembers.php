@@ -1,15 +1,83 @@
 <?php require APPROOT . '/views/includes/header.php';  ?>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
- 
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="<?=URLROOT; ?>/ClubMember/add_clubmember">Add New Club Member</a>
-      </li>
-    </li>
-</div>
+<nav class="navbar navbar-light bg-light mb-3">
+
+    <div class="d-flex flex-wrap align-items-center">
+
+        <a href="<?= URLROOT ?>/ClubMember/add_clubmember"
+           class="mr-4"
+           style="color: #6c757d; text-decoration: none;">
+            Add New Club Member
+        </a>
+
+        <form method="GET"
+              action="<?= URLROOT ?>/ClubMember/index"
+              class="form-inline mb-0">
+
+            <input type="text"
+                   name="search"
+                   class="form-control mr-2"
+                   style="width: 440px;"
+                   placeholder="Search by ID, name, SSN, Medicare, city..."
+                   value="<?= htmlspecialchars(
+                       $data['search_value'] ?? '',
+                       ENT_QUOTES,
+                       'UTF-8'
+                   ) ?>">
+
+            <button type="submit"
+                    class="btn btn-primary mr-2">
+                Search
+            </button>
+
+            <a href="<?= URLROOT ?>/ClubMember/index"
+               class="btn btn-secondary">
+                Clear
+            </a>
+
+        </form>
+
+    </div>
+
 </nav>
+
+<?php if (isset($_GET['deleted']) && $_GET['deleted'] === '1'): ?>
+
+    <div class="alert alert-success alert-dismissible fade show"
+         role="alert">
+
+        Club member deleted successfully!
+
+        <button type="button"
+                class="close"
+                data-dismiss="alert"
+                aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+
+    </div>
+
+<?php endif; ?>
+
+
+<?php if (
+    !empty($data['search_value']) &&
+    empty($data['clubmembers'])
+): ?>
+
+    <div class="alert alert-warning" role="alert">
+
+        No club members matched
+        "<strong><?= htmlspecialchars(
+            $data['search_value'],
+            ENT_QUOTES,
+            'UTF-8'
+        ) ?></strong>".
+
+    </div>
+
+<?php endif; ?>
+
 
 <table class="table table-striped">
   <h3>List of Club Members</h3>
@@ -56,5 +124,6 @@
     </tr>
   </tbody>
 </table>
+
 
 <?php require APPROOT . '/views/includes/footer.php'; ?>

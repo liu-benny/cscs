@@ -109,6 +109,13 @@
 
     
     <button class="btn btn-primary" type="submit" name="submit">Update Club Member</button>
+    <button type="submit"
+        class="btn btn-danger"
+        formaction="<?= URLROOT ?>/ClubMember/delete_clubmember/<?= (int) $data['clubmember']->membership_number ?>"
+        formmethod="POST"
+        onclick="return confirm('Are you sure you want to delete this club member?');">
+    Delete Club Member
+</button>
 </form>
 
 

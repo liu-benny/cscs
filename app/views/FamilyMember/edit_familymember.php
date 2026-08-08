@@ -90,7 +90,15 @@
     </div>
     
     <button class="btn btn-primary" type="submit" name="submit">Update Personnel</button>
+    <button class="btn btn-danger"
+        type="submit"
+        formaction="<?= URLROOT ?>/FamilyMember/delete_familymember/<?= (int) $data['familymember']->family_member_id ?>"
+        formmethod="POST"
+        onclick="return confirm('Are you sure you want to delete this family member and all related records?');">
+    Delete Family Member
+</button>
 </form>
+
 
 
 <?php require APPROOT . '/views/includes/footer.php'; ?>
