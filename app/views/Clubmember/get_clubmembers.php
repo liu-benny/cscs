@@ -9,6 +9,16 @@
            style="color: #6c757d; text-decoration: none;">
             Add New Club Member
         </a>
+        <a href="<?= URLROOT ?>/ClubMember/majors"
+           class="mr-4"
+           style="color: #6c757d; text-decoration: none;">
+            Show Major Club Members
+        </a>
+        <a href="<?= URLROOT ?>/ClubMember/minors"
+           class="mr-4"
+           style="color: #6c757d; text-decoration: none;">
+            Show Minor Club Members
+        </a>
 
         <form method="GET"
               action="<?= URLROOT ?>/ClubMember/index"

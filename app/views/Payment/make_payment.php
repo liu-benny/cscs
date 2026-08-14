@@ -2,7 +2,7 @@
 
 <h3> Make Payment for a <?=  $data['clubmember']->first_name ?> <?= $data['clubmember']->last_name ?></h3>
 
-<form method="post" action="<?php echo URLROOT; ?>/Payment/make_payment">
+<form method="post" action="<?= URLROOT; ?>/Payment/make_payment/<?= $data['clubmember']->membership_number ?>">
 
     <div class="form-group row">
         <label for="membership_number_input" class="col-sm-2 col-form-label">Membership Number</label>
@@ -14,7 +14,19 @@
         <div class="form-group row">
         <label for="amount_input" class="col-sm-2 col-form-label">Amount $</label>
             <div class="col-sm-4">
-                <input type="number" class="form-control" id="amount_input" name="amount" placeholder="Enter Amount to Pay" required>
+                <input type="number" class="form-control" min="0" step="0.01" id="amount_input" name="amount" placeholder="Enter Amount to Pay" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+        <label for="payment_method_input" class="col-sm-2 col-form-label">Payment Method</label>
+            <div class="col-sm-4">
+                <select id="payment_method_input" class="form-control" name="payment_method" required>
+                    <option disabled selected hidden>Please select a payment method...</option>
+                    <option>Cash</option>
+                    <option>Credit Card</option>
+                    <option>Debit Card</option>
+                </select>  
             </div>
         </div>
 
@@ -30,6 +42,6 @@
             </div> 
         </div>
 
-        <button type="submit" class="btn btn-primary">Submit Payment</button>
+        <button type="submit" class="btn btn-primary" name="submit">Submit Payment</button>
 </form>
 <?php require APPROOT . '/views/includes/footer.php'; ?>

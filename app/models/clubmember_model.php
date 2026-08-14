@@ -123,7 +123,8 @@ class clubmember_model extends Model{
         "TeamPlayer",
         "ParticipatedIn",
         "Major",
-        "Minor"
+        "Minor",
+        "MemberLocation"
     ];
 
     foreach ($tables as $table) {
@@ -187,5 +188,22 @@ public function search_clubmembers($search_value)
 
     return $this->getResultSet();
 }
+
+
+    public function get_majors(){
+        
+        $this->query("SELECT * FROM ClubMember
+                    JOIN Major ON Major.membership_number = ClubMember.membership_number
+                    ");
+        return $this->getResultSet();
+    }
+
+    public function get_minors(){
+        
+        $this->query("SELECT * FROM ClubMember
+                    JOIN Minor ON Minor.membership_number = ClubMember.membership_number
+                    ");
+        return $this->getResultSet();
+    }
 
 }

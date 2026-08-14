@@ -7,7 +7,7 @@
       <li class="nav-item">
         <a class="nav-link" href="<?=URLROOT; ?>/Team/add_team_formation">Add New Team Formation</a>
       </li>
-    </li>
+    </ul>
    </div>
 </nav>
 <table class="table table-striped">

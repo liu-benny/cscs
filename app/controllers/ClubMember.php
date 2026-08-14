@@ -219,7 +219,27 @@ public function delete_clubmember($membership_number)
     echo 'Unable to delete the club member.';
 }
 
+    
+    public function majors(){
+        $clubmembers = $this->clubmember_model->get_majors();
+        $data = [
+            "clubmembers" => $clubmembers
+        ];
+        $this->view("ClubMember/majors",$data);
+    }
+
+    public function minors(){
+        $clubmembers = $this->clubmember_model->get_minors();
+        $data = [
+            "clubmembers" => $clubmembers
+        ];
+        $this->view("ClubMember/minors",$data);
+    }
+    
+
 }
+
+
 
 
 

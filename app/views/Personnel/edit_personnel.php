@@ -1,7 +1,8 @@
 <?php require APPROOT . '/views/includes/header.php';  ?>
 
 <form method="post" action="<?= URLROOT; ?>/Personnel/edit_personnel/<?= $data['personnel']->personnel_id ?>">
-    <h3>Edit the Personnel information <button type="button" class="btn btn-warning" onclick="window.location.href='<?= URLROOT; ?>/Personnel/change_location/<?= $data['personnel']->personnel_id ?>'">Change Location: <?= $data['current_location']->location_name ?></button></h3>
+    <h3>Edit the Personnel information <button type="button" class="btn btn-warning" onclick="window.location.href='<?= URLROOT; ?>/Personnel/change_location/<?= $data['personnel']->personnel_id ?>'">
+        Change Location: <?php if ($data['current_location']) { echo $data['current_location']->location_name; } else { echo "No Current Location"; } ?></button></h3>
         
         <div class="form-group row">
         <label for="first_name_input" class="col-sm-2 col-form-label">First Name</label>
