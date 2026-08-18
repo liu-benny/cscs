@@ -65,6 +65,7 @@ class ClubMember extends Controller{
                 'city' => trim($_POST['city']),
                 'province' => trim($_POST['province']),
                 'postal_code' => trim($_POST['postal_code']),
+                'email' => trim($_POST['email']),
                 'location_id' => trim($_POST['location_id']),
                 'start_date' => trim($_POST['start_date']),
                 'end_date' => trim($_POST['end_date']),
@@ -114,6 +115,8 @@ class ClubMember extends Controller{
                 if($this->clubmember_model->add_clubmember_location($new_clubmember->membership_number, $data['location_id'], $data['start_date'],$data['end_date'])){
 
                     if($this->clubmember_model->add_relationship($new_clubmember->membership_number, $data['family_member_id'], $data['relationship_type'])){
+
+                        unset($_SESSION['temp_clubmember_data']);
                         echo 'Please wait we are adding the club member for you!';
                 
                         echo '<meta http-equiv="Refresh" content="2; url=' . URLROOT . '/ClubMember/index">';
@@ -155,7 +158,8 @@ class ClubMember extends Controller{
                 'address' => trim($_POST['address']),
                 'city' => trim($_POST['city']),
                 'province' => trim($_POST['province']),
-                'postal_code' => trim($_POST['postal_code'])
+                'postal_code' => trim($_POST['postal_code']),
+                'email' => trim($_POST['email'])
             ];
 
             if($this->clubmember_model->update_clubmember($membership_number,$data)){

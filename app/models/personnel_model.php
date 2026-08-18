@@ -7,19 +7,19 @@ class personnel_model extends Model{
     }
 
     public function get_personnels(){
-        $this->query("SELECT * FROM personnel");
+        $this->query("SELECT * FROM Personnel");
         return $this->getResultSet();
     }
 
     public function get_personnel($personnel_id){
-        $this->query("SELECT * FROM personnel WHERE personnel_id = :personnel_id");
+        $this->query("SELECT * FROM Personnel WHERE personnel_id = :personnel_id");
         $this->bind(":personnel_id",$personnel_id);
         return $this->getSingle();
     }
 
     public function get_current_personnel_location($personnel_id){
-        $this->query("SELECT location.location_id, location.location_name FROM EmployedAt 
-                        JOIN location ON EmployedAt.location_id = location.location_id 
+        $this->query("SELECT Location.location_id, Location.location_name FROM EmployedAt 
+                        JOIN Location ON EmployedAt.Location_id = Location.location_id 
                         WHERE EmployedAt.personnel_id = :personnel_id AND EmployedAt.end_date IS NULL");
         $this->bind(":personnel_id",$personnel_id);
         return $this->getSingle();
@@ -27,7 +27,7 @@ class personnel_model extends Model{
 
     public function add_personnel($personnel){
 
-        $this->query("INSERT INTO personnel (first_name,last_name,date_of_birth,ssn,medicare_number, phone_number, address, city, province,postal_code, email,personnel_role,mandate)
+        $this->query("INSERT INTO Personnel (first_name,last_name,date_of_birth,ssn,medicare_number, phone_number, address, city, province,postal_code, email,personnel_role,mandate)
                       VALUES (:first_name,:last_name,:date_of_birth,:ssn,:medicare_number, :phone_number, :address, :city, :province,:postal_code, :email,:personnel_role,:mandate)");
         
         $this->bind(":first_name",$personnel['first_name']);
@@ -49,7 +49,7 @@ class personnel_model extends Model{
 
 
     public function update_personnel($personnel_id,$personnel){
-        $this->query("UPDATE personnel SET first_name = :first_name, last_name = :last_name, date_of_birth = :date_of_birth, ssn = :ssn, medicare_number = :medicare_number, phone_number = :phone_number, address = :address, city = :city, province = :province, postal_code = :postal_code, email = :email, personnel_role = :personnel_role, mandate = :mandate WHERE personnel_id = :personnel_id");
+        $this->query("UPDATE Personnel SET first_name = :first_name, last_name = :last_name, date_of_birth = :date_of_birth, ssn = :ssn, medicare_number = :medicare_number, phone_number = :phone_number, address = :address, city = :city, province = :province, postal_code = :postal_code, email = :email, personnel_role = :personnel_role, mandate = :mandate WHERE personnel_id = :personnel_id");
 
         $this->bind(":personnel_id",$personnel_id);
         $this->bind(":first_name",$personnel['first_name']);
@@ -191,6 +191,16 @@ class personnel_model extends Model{
         $this->bind(":personnel_id", $personnel_id);
 
         return $this->execute();
+    }
+
+    public function get_head_coaches_by_location($location_id){
+        $this->query("SELECT Personnel.* 
+                        FROM Personnel
+                        INNER JOIN EmployedAt ON Personnel.personnel_id = EmployedAt.personnel_id
+                        WHERE Personnel.personnel_role = 'Coach' 
+                        AND EmployedAt.location_id = :location_id;");
+        $this->bind(":location_id", $location_id);
+        return $this->getResultSet();
     }
 
     public function get_latest_personnel_id(){

@@ -107,6 +107,7 @@
       <th scope="col">city</th>
       <th scope="col">province</th>
       <th scope="col">postal code</th>
+      <th score="col">email</th>
       
     </tr>
   </thead>
@@ -127,6 +128,7 @@
         <td><?= $clubmember->city ?></td>
         <td><?= $clubmember->province?></td>
         <td><?= $clubmember->postal_code ?></td>
+        <td><?= $clubmember->email ?></td>
         <td><a class="btn btn-sm btn-secondary" href="<?= URLROOT; ?>/ClubMember/edit_clubmember/<?= $clubmember->membership_number ?>">Edit</a></td>
         <td><a class="btn btn-sm btn-success" href="<?= URLROOT; ?>/Payment/make_payment/<?= $clubmember->membership_number ?>">Make Payment</a></td>
       </tr>

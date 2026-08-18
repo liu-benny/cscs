@@ -8,13 +8,13 @@ class location_model extends Model{
     
 
     public function get_location($location_id){
-        $this->query("SELECT * FROM location WHERE location_id = :location_id");
+        $this->query("SELECT * FROM Location WHERE location_id = :location_id");
         $this->bind(":location_id",$location_id);
         return $this->getSingle();
     }
 
     public function get_locations(){
-        $this->query("SELECT * FROM location");
+        $this->query("SELECT * FROM Location");
         return $this->getResultSet();
     }
 
@@ -25,7 +25,7 @@ class location_model extends Model{
     }
 
     public function add_location($location){
-        $this->query("INSERT INTO location (location_type,location_name,address,city,province,postal_code,web_address,max_capacity)
+        $this->query("INSERT INTO Location (location_type,location_name,address,city,province,postal_code,web_address,max_capacity)
                                  VALUES (:location_type,:location_name,:address,:city,:province,:postal_code,:web_address,:max_capacity)");
 
         $this->bind(":location_type",$location['location_type']);
@@ -50,7 +50,7 @@ class location_model extends Model{
     }
 
     public function update_location($location_id,$location){
-        $this->query("UPDATE location SET location_name = :location_name, address = :address, city = :city, province = :province, postal_code = :postal_code, web_address = :web_address, max_capacity = :max_capacity WHERE location_id = :location_id");
+        $this->query("UPDATE Location SET location_name = :location_name, address = :address, city = :city, province = :province, postal_code = :postal_code, web_address = :web_address, max_capacity = :max_capacity WHERE location_id = :location_id");
 
         $this->bind(":location_id",$location_id);
         $this->bind(":location_name",$location['location_name']);

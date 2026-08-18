@@ -44,6 +44,9 @@
     <li class="nav-item">
       <a class="nav-link" href="<?= URLROOT; ?>/Payment">Payment History</a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link" href="<?= URLROOT; ?>/Email">Email Log</a>
+    </li>
   </ul>
 </div>
 </nav>

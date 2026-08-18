@@ -5,9 +5,14 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="<?=URLROOT; ?>/Team/add_team_formation">Add New Team Formation</a>
+        <a class="nav-link" href="<?=URLROOT; ?>/Team/add_team">Create a Team</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<?=URLROOT; ?>/Team/add_team_session">Add New Team Formation</a>
+      </li>
+      
     </ul>
+    
    </div>
 </nav>
 <table class="table table-striped">
@@ -33,7 +38,7 @@
         <td><?= $formation->name ?></td>
         <td><?= $formation->coach_first_name ?> <?= $formation->coach_last_name ?></td>
         <td><?= $formation->gender_category ?></td>
-        <td><?= $formation->score ?></td>
+        <td><?= $formation->score ?? 'TBD' ?></td>
         <td>
             <?php foreach ($formation->players as $player): ?>
                 <?= $player->first_name ?> <?= $player->last_name ?> (<?= $player->position ?>)<br>
@@ -41,8 +46,11 @@
         </td>
         <td><?php $formation->date ?> <?= $formation->date ?></td>
         <td><?php $formation->start_time ?> <?= $formation->start_time ?></td>
+        <td><a class="btn btn-sm btn-secondary" href="<?= URLROOT; ?>/Team/edit_team_formation/<?= $formation->session_id ?>/<?= $formation->team_id ?>">Edit</a></td>
     </tr>
     <?php endforeach; ?>
     </tr>
   </tbody>
 </table>
+
+<?php require APPROOT . '/views/includes/footer.php';  ?>

@@ -18,18 +18,18 @@
         </div>
 
         <div class="form-group row"> 
-    <label for="date_of_birth_input" class="col-sm-2 col-form-label">Date of Birth</label> 
-    <div class="col-sm-4"> 
-        <?php $max_birth_date = date('Y-m-d', strtotime('-4 years')); ?>
-        <input 
-            type="date" 
-            class="form-control" 
-            id="date_of_birth_input" 
-            name="date_of_birth" 
-            max="<?= $max_birth_date; ?>" 
-            required> 
-    </div> 
-</div>
+        <label for="date_of_birth_input" class="col-sm-2 col-form-label">Date of Birth</label> 
+        <div class="col-sm-4"> 
+            <?php $max_birth_date = date('Y-m-d', strtotime('-4 years')); ?>
+            <input 
+                type="date" 
+                class="form-control" 
+                id="date_of_birth_input" 
+                name="date_of_birth" 
+                max="<?= $max_birth_date; ?>" 
+                required> 
+        </div> 
+        </div>
 
         <div class="form-group row">
         <label for="ssn_input" class="col-sm-2 col-form-label">SSN</label>
@@ -113,6 +113,13 @@
       <input type="text" class="form-control" id="postal_code_input" name="postal_code" placeholder="Postal Code" required>
     </div>
   </div>
+
+  <div class="form-group row">
+        <label for="email_input" class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-10">
+        <input type="email" class="form-control" id="email_input" name="email" placeholder="Email" required>
+        </div>
+    </div>
 
 
     <div class="form-group row">

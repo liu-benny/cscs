@@ -64,11 +64,20 @@ class clubmember_model extends Model{
     }
 
     public function get_clubmember_location($membership_number){
-        $this->query("SELECT location.location_id, location.location_name FROM MemberLocation 
-                        JOIN location ON MemberLocation.location_id = location.location_id 
+        $this->query("SELECT Location.location_id, Location.location_name FROM MemberLocation 
+                        JOIN Location ON MemberLocation.location_id = Location.location_id 
                         WHERE MemberLocation.membership_number = :membership_number AND end_date IS NULL");
         $this->bind(":membership_number",$membership_number);
         return $this->getSingle();
+    }
+
+    public function get_clubmember_by_location_and_gender($location_id, $gender){
+        $this->query("SELECT * FROM ClubMember 
+                        JOIN MemberLocation ON ClubMember.membership_number = MemberLocation.membership_number
+                        WHERE MemberLocation.location_id = :location_id AND MemberLocation.end_date IS NULL AND ClubMember.gender = :gender");
+        $this->bind(":location_id",$location_id);
+        $this->bind(":gender",$gender);
+        return $this->getResultSet();
     }
 
     public function add_clubmember_location($membership_number, $location_id,$start_date,$end_date){
