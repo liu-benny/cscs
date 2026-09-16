@@ -20,5 +20,5 @@
   define('URLROOT', 'https://wrc353.encs.concordia.ca/cscs');
   define('DB_HOST', 'wrc353.encs.concordia.ca');
   define('DB_USER', 'wrc353_1');
-  define('DB_PASS', '***REMOVED***');
+  define('DB_PASS', 'ENTER PASSWORD HERE');
   define('DB_NAME', 'wrc353_1');
